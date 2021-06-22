@@ -1,0 +1,42 @@
+{
+  "name": "wetube",
+  "version": "1.0.0",
+  "description": "The best way to watch videos.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HS-Jeong88/wetube-reloaded.git"
+  },
+  "scripts": {
+    "start": "node index",
+    "server": "nodemon",
+    "assets": "webpack"
+  },
+  "author": "Jeong Han Sae",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HS-Jeong88/wetube-reloaded/issues"
+  },
+  "homepage": "https://github.com/HS-Jeong88/wetube-reloaded#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-flash": "0.0.2",
+    "mongoose": "^5.12.14",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.2",
+    "pug": "^3.0.2",
+    "sass": "^1.35.1",
+    "sass-loader": "^12.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/node": "^7.14.5",
+    "@babel/preset-env": "^7.14.5",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.2.6",
+    "mini-css-extract-plugin": "^1.6.0",
+    "nodemon": "^2.0.7",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.39.1",
+    "webpack-cli": "^4.7.2"
+  }
+}
