@@ -4,11 +4,42 @@ block content
     form(method="POST", enctype="multipart/form-data").edit-profile__form
         label(for="avatar") Avatar
         input(type="file", id="avatar", name="avatar", accept="image/*")
-        input(placeholder="Name", name="name", type="text", required, value=loggedInUser.name)
-        input(placeholder="Email", name="email", type="email", required, value=loggedInUser.email)
-        input(placeholder="Username", name="username", type="text", required, value=loggedInUser.username)
-        input(placeholder="Location", name="location", type="text", required, value=loggedInUser.location)
-        input(type="submit", value="Update Profile")
+        input(placeholder="아이디", name="userId", type="text", required, value=loggedInUser.userId)
+        input(placeholder="이름", name="name", type="text", required, value=loggedInUser.name)
+        input(placeholder="닉네임", name="nickname", type="text", value=loggedInUser.nickname)
+        input(placeholder="전화번호", name="phoneNumber", type="tel",required, value=loggedInUser.phoneNumber)
+        input(placeholder="주소", name="address", type="text", required, value=loggedInUser.address)
+        input(placeholder="이메일", name="email", type="email", required, value=loggedInUser.email)
+        input(placeholder="생일", name="birth", type="select", required, value=loggedInUser.birth)
+        label(for="radio") 
+            span 성별
+            br
+            span 남성
+                if loggedInUser.gender=="male"
+                    input#male(name="gender", type="radio", value="male",  checked="true") 
+                else
+                    input#male(name="gender", type="radio", value="male") 
+            span / 
+            span 여성
+                if loggedInUser.gender=="female"
+                    input#female(name="gender", type="radio", value="female",  checked="true") 
+                else
+                    input#female(name="gender", type="radio", value="female") 
+        label(for="checkbox") 
+            span 수신동의
+            br
+            span Email
+                if loggedInUser.allowingEmail==true
+                    input(name="allowingEmail", type="checkbox", value="Email", checked="true")
+                else
+                    input(name="allowingEmail", type="checkbox", value="Email")
+            span / 
+            span SMS
+                if loggedInUser.allowingSMS==true
+                    input(name="allowingSMS", type="checkbox", value="SMS", checked="true")
+                else
+                    input(name="allowingSMS", type="checkbox", value="SMS")
+        input(type="submit", value="수정")
         if !loggedInUser.socialOnly
             div.edit-profile__password
-                a(href="change-password") Change Password &rarr; 
+                a(href="change-password") 비밀번호 변경 &rarr; 

@@ -4,54 +4,76 @@ import bcrypt from "bcrypt";
 
 export const getJoin = (req, res) => res.render("join", { pageTitle: "Join" });
 export const postJoin = async (req, res) => {
-  const { name, username, email, password, password2, location } = req.body;
+  const {
+    userId,
+    password,
+    password2,
+    name,
+    nickname,
+    phoneNumber,
+    address,
+    email,
+    birth,
+    gender,
+  } = req.body;
+  let { allowingEmail, allowingSMS } = req.body;
   const pageTitle = "Join";
   if (password !== password2) {
-    return res.status(400).render("join", {
-      pageTitle,
-      errorMessage: "Password confirmation does not match.",
-    });
+    return res
+      .status(400)
+      .render("join", { pageTitle, errorMessage: "Password confirmation does not match." });
   }
-  const exists = await User.exists({ $or: [{ username }, { email }] });
+  const exists = await User.exists({
+    $or: [
+      {
+        userId,
+      },
+      {
+        email,
+      },
+    ],
+  });
   if (exists) {
-    return res.status(400).render("join", {
-      pageTitle,
-      errorMessage: "This username/email is already taken.",
-    });
+    return res
+      .status(400)
+      .render("join", { pageTitle, errorMessage: "This ID/email is already taken." });
   }
   try {
     await User.create({
-      name,
-      username,
-      email,
+      userId,
       password,
-      location,
+      name,
+      nickname,
+      phoneNumber,
+      address,
+      email,
+      birth,
+      gender,
+      allowingEmail: allowingEmail === "Email" ? (allowingEmail = true) : (allowingEmail = false),
+      allowingSMS: allowingSMS === "SMS" ? (allowingSMS = true) : (allowingSMS = false),
     });
     return res.redirect("/login");
   } catch (error) {
     return res.status(400).render("join", {
-      pageTitle: "Upload Video",
+      pageTitle: "Join",
       errorMessage: error._message,
     });
   }
 };
+
 export const getLogin = (req, res) => res.render("login", { pageTitle: "Login" });
 export const postLogin = async (req, res) => {
-  const { username, password } = req.body;
+  const { userId, password } = req.body;
   const pageTitle = "Login";
-  const user = await User.findOne({ username, socialOnly: false });
+  const user = await User.findOne({ userId });
   if (!user) {
-    return res.status(400).render("login", {
-      pageTitle,
-      errorMessage: "An account with this username does not exists.",
-    });
+    return res
+      .status(400)
+      .render("login", { pageTitle, errorMessage: "An account with this ID does not exists." });
   }
   const ok = await bcrypt.compare(password, user.password);
   if (!ok) {
-    return res.status(400).render("login", {
-      pageTitle,
-      errorMessage: "Wrong password",
-    });
+    return res.status(400).render("login", { pageTitle, errorMessage: "Wrong password" });
   }
   req.session.loggedIn = true;
   req.session.user = user;
@@ -112,7 +134,7 @@ export const finishGithubLogin = async (req, res) => {
       user = await User.create({
         avatarUrl: userData.avatar_url,
         name: userData.name,
-        username: userData.login,
+        userId: userData.login,
         email: emailObj.email,
         password: "",
         socialOnly: true,
@@ -139,8 +161,11 @@ export const postEdit = async (req, res) => {
     session: {
       user: { _id, avatarUrl },
     },
-    body: { name, email, username, location },
+    body: { name, email, userId, nickname, phoneNumber, address, birth, gender },
     file,
+  } = req;
+  let {
+    body: { allowingEmail, allowingSMS },
   } = req;
   const updatedUser = await User.findByIdAndUpdate(
     _id,
@@ -148,8 +173,14 @@ export const postEdit = async (req, res) => {
       avatarUrl: file ? file.path : avatarUrl,
       name,
       email,
-      username,
-      location,
+      userId,
+      nickname,
+      phoneNumber,
+      address,
+      birth,
+      gender,
+      allowingEmail: allowingEmail === "Email" ? (allowingEmail = true) : (allowingEmail = false),
+      allowingSMS: allowingSMS === "SMS" ? (allowingSMS = true) : (allowingSMS = false),
     },
     { new: true }
   );

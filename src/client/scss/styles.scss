@@ -59,3 +59,17 @@ main {
     color: white;
   }
 }
+
+.errormessage {
+  padding-bottom: 5px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.siteListField {
+  display: flex;
+  flex-direction: row;
+}
+.contents {
+  width: 100px;
+}

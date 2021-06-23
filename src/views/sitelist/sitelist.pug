@@ -1,0 +1,4 @@
+include ../mixins/addField
+div.siteListField
+    each item in lists
+        +addField(item.fieldName,item.fieldData)

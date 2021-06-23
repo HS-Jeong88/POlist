@@ -136,7 +136,7 @@ header {
   align-items: center;
 }
 header .header__logo {
-  color: #cc0d00;
+  color: white;
   font-size: 38px;
 }
 header ul {
@@ -227,7 +227,7 @@ form:not(.search__form) {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-input:not(input[type=range]) {
+input:not(input[type=range]):not(input[type=radio]):not(input[type=checkbox]) {
   all: unset;
   padding: 15px 20px;
   border-radius: 5px;
@@ -238,7 +238,7 @@ input:not(input[type=range]) {
   color: white;
   width: 90%;
 }
-input:not(input[type=range])::placeholder {
+input:not(input[type=range]):not(input[type=radio]):not(input[type=checkbox])::placeholder {
   color: rgba(255, 255, 255, 0.7);
 }
 
@@ -417,4 +417,20 @@ main {
 .message.error {
   background-color: tomato;
   color: white;
+}
+
+.errormessage {
+  padding-bottom: 5px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.siteListField {
+  display: flex;
+  flex-direction: row;
+}
+
+.contents {
+  width: 100px;
 }

@@ -2,8 +2,23 @@ import Video from "../models/Video";
 import User from "../models/User";
 
 export const home = async (req, res) => {
+  let lists = {
+    field1: {
+      fieldName: "1번필드",
+      fieldData: "1번내용",
+    },
+    field2: {
+      fieldName: "2번필드",
+      fieldData: "2번내용",
+    },
+    field3: {
+      fieldName: "3번필드",
+      fieldData: "3번내용",
+    },
+  };
+  console.log(lists.field1.fieldName);
   const videos = await Video.find({}).sort({ createdAt: "desc" }).populate("owner");
-  return res.render("home", { pageTitle: "Home", videos });
+  return res.render("home", { pageTitle: "Home", lists });
 };
 
 export const watch = async (req, res) => {
