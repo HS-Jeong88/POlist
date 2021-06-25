@@ -6,23 +6,7 @@ export const home = async (req, res) => {
   const {
     user: { _id },
   } = req.session;
-  let lists = Site.find({ owner: _id }, (err, docs) => {
-    let keyList = [];
-    let values = [];
-    const keyValue = Object.keys(docs[0]._doc);
-    for (let i = 1; i < keyValue.length - 2; i++) {
-      keyList.push(keyValue[i]);
-    }
-    for (let i in docs) {
-      for(let j in i)
-      const valuesObj = {
-
-      };
-      values.push(valuesObj);
-    }
-    console.log(values);
-    return res.render("home", { pageTitle: "Home", values, keyList });
-  });
+  return res.render("home", { pageTitle: "Home" });
 };
 export const postSiteForm = async (req, res) => {
   const { siteUrl, siteName, owner } = req.body;
