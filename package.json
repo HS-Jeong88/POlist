@@ -7,7 +7,7 @@
     "url": "git+https://github.com/HS-Jeong88/wetube-reloaded.git"
   },
   "scripts": {
-    "start": "node index",
+    "start": "node app.js",
     "server": "nodemon",
     "assets": "webpack"
   },
