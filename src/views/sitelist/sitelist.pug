@@ -1,11 +1,5 @@
 include ../mixins/addField
 div.siteListField
-    div.fieldAlign
-        each item in keyList 
-            +addField(item)
-    div.contents
-        each item in values
-            +addField(item)      
     input.addBtn#open(type="button", value="✚")
 form.modal__form(method="post") 
     div.modal.hidden
