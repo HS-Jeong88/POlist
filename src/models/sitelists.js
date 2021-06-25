@@ -4,9 +4,10 @@ const siteSchema = new mongoose.Schema({
   checkbox: { type: Boolean },
   grade: { type: String },
   attendance: { type: Boolean },
-  sitaName: { type: String },
+  siteName: { type: String },
   siteUrl: { type: String },
   selectLoginId: { type: String },
+  owner: { type: String },
 });
 
 const Site = mongoose.model("sitelist", siteSchema);
