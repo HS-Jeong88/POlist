@@ -1,4 +1,5 @@
 import "regenerator-runtime";
+import MongoStore from "connect-mongo";
 import session from "express-session";
 import bcrypt from "bcrypt";
 import "dotenv/config";
