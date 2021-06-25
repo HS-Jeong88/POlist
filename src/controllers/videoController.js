@@ -1,24 +1,37 @@
 import Video from "../models/Video";
 import User from "../models/User";
+import Site from "../models/sitelists";
 
 export const home = async (req, res) => {
-  let lists = {
-    field1: {
-      fieldName: "1번필드",
-      fieldData: "1번내용",
-    },
-    field2: {
-      fieldName: "2번필드",
-      fieldData: "2번내용",
-    },
-    field3: {
-      fieldName: "3번필드",
-      fieldData: "3번내용",
-    },
-  };
-  console.log(lists.field1.fieldName);
-  const videos = await Video.find({}).sort({ createdAt: "desc" }).populate("owner");
-  return res.render("home", { pageTitle: "Home", lists });
+  const {
+    user: { _id },
+  } = req.session;
+  let lists = Site.find({ owner: _id }, (err, docs) => {
+    let keyList = [];
+    let values = [];
+    const keyValue = Object.keys(docs[0]._doc);
+    for (let i = 1; i < keyValue.length - 2; i++) {
+      keyList.push(keyValue[i]);
+    }
+    for (let i in docs) {
+      for(let j in i)
+      const valuesObj = {
+
+      };
+      values.push(valuesObj);
+    }
+    console.log(values);
+    return res.render("home", { pageTitle: "Home", values, keyList });
+  });
+};
+export const postSiteForm = async (req, res) => {
+  const { siteUrl, siteName, owner } = req.body;
+  await Site.create({
+    siteUrl,
+    siteName: siteName,
+    owner: req.session.user._id,
+  });
+  res.redirect("/");
 };
 
 export const watch = async (req, res) => {
@@ -120,5 +133,5 @@ export const search = async (req, res) => {
       },
     }).populate("owner");
   }
-  return res.render("search", { pageTitle: "Search", videos });
+  return res.render("search", { pageTitle: "Search", lists });
 };
