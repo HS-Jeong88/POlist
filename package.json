@@ -7,8 +7,8 @@
     "url": "git+https://github.com/HS-Jeong88/wetube-reloaded.git"
   },
   "scripts": {
-    "start": "node build/init.js",
     "build": "npm run build:server && npm run build:assets",
+    "start": "node build/init.js",
     "build:server": "babel src -d build",
     "build:assets": "webpack --mode=production",
     "server": "nodemon",
