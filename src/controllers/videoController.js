@@ -3,10 +3,7 @@ import User from "../models/User";
 import Site from "../models/sitelists";
 
 export const home = async (req, res) => {
-  const {
-    user: { _id },
-  } = req.session;
-  return res.render("home", { pageTitle: "Home" });
+  return res.render("home", { pageTitle: "Home", values, keyList });
 };
 export const postSiteForm = async (req, res) => {
   const { siteUrl, siteName, owner } = req.body;
