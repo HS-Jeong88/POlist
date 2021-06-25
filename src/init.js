@@ -1,4 +1,5 @@
 import "regenerator-runtime";
+import bcrypt from "bcrypt";
 import "dotenv/config";
 import "./db";
 import "./models/Video";
