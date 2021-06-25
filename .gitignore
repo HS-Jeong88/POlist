@@ -1,3 +1,6 @@
 /node_module
 .env
 /uploads
+.DS_Store
+/assets
+/build
