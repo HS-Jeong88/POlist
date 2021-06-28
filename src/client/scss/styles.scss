@@ -72,14 +72,18 @@ main {
   display: flex;
   flex-direction: column;
 }
+.fieldAlign {
+  display: flex;
+  flex-direction: row;
+}
 .contents {
-  width: 100px;
+  display: flex;
+  flex-direction: row;
+}
+.value {
+  margin-right: 10px;
 }
 .addBtn {
   all: unset;
   width: min-content;
-}
-.fieldAlign {
-  display: flex;
-  flex-direction: row;
 }
