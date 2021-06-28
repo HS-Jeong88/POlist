@@ -20,16 +20,18 @@ export const getSitelist = async (req, res) => {
   let keyList = [];
   let values = [];
   let valuesIndex = [];
-  const keyValue = Object.keys(docs[0]._doc);
-  for (let i = 1; i < keyValue.length - 2; i++) {
-    keyList.push(keyValue[i]);
-  }
-  for (let j = 0; j < docs.length; j++) {
-    const valuesObj = {};
-    for (let i = 0; i < keyList.length; i++) {
-      valuesObj[keyList[i]] = docs[j][keyList[i]];
+  if (docs) {
+    const keyValue = Object.keys(docs[0]._doc);
+    for (let i = 1; i < keyValue.length - 2; i++) {
+      keyList.push(keyValue[i]);
     }
-    values.push(valuesObj);
+    for (let j = 0; j < docs.length; j++) {
+      const valuesObj = {};
+      for (let i = 0; i < keyList.length; i++) {
+        valuesObj[keyList[i]] = docs[j][keyList[i]];
+      }
+      values.push(valuesObj);
+    }
   }
   return res.render("sitelist", { pageTitle: "sitelist", keyList, values });
 };
