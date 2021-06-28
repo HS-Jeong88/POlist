@@ -20,7 +20,8 @@ export const getSitelist = async (req, res) => {
   let keyList = [];
   let values = [];
   let valuesIndex = [];
-  if (docs) {
+  console.log(docs);
+  if (docs != false) {
     const keyValue = Object.keys(docs[0]._doc);
     for (let i = 1; i < keyValue.length - 2; i++) {
       keyList.push(keyValue[i]);
