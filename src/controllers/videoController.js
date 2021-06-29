@@ -20,7 +20,6 @@ export const getSitelist = async (req, res) => {
   let keyList = [];
   let values = [];
   let valuesIndex = [];
-  console.log(docs);
   if (docs != false) {
     const keyValue = Object.keys(docs[0]._doc);
     for (let i = 1; i < keyValue.length - 2; i++) {
@@ -53,9 +52,7 @@ export const getAutoLogin = async (req, res) => {
 export const postAutoLogin = async (req, res) => {
   const { getUrl, inputId, inputPw } = req.body;
   const run = async () => {
-    const service = new chrome.ServiceBuilder(
-      "/Users/jhs/Defragmentation/bird/POList/src/chromedriver"
-    ).build();
+    const service = new chrome.ServiceBuilder(process.env.CHROME_DRIVER_PATH).build();
     chrome.setDefaultService(service);
 
     const driver = await new webdriver.Builder().forBrowser("chrome").build();
