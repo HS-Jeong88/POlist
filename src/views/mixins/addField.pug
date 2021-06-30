@@ -1,14 +1,19 @@
 mixin addField(str)
-  div.contents=str
+  if str!=="owner"
+    div.contents=str 
 
 mixin addValue(obj)
-  form#autologin.siteForm(method="post",action="/autologin") 
-    input(type="hidden", name="getUrl", value=`${obj.siteUrl}`)
-    div.contents
+  if obj.owner === _id
+    form.autologin.siteForm(method="post",action="/autologin") 
+      input(type="hidden", name="getUrl", value=`${obj.siteUrl}`)
       div.contents
+        div.contents
           span.value=obj.siteUrl  
-      div.contents
-        span.value=obj.siteName
-      input(placeholder="아이디",type="text", name="inputId")
-      input(placeholder="비밀번호",type="password", name="inputPw")
-      input(type="submit", value="자동로그인")
+        div.contents
+          span.value=obj.siteName
+        input(placeholder="아이디",type="text", name="inputId")
+        input(placeholder="비밀번호",type="password", name="inputPw")
+        input(type="submit", value="자동로그인")
+
+
+

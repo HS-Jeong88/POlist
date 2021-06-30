@@ -16,13 +16,12 @@ export const getSitelist = async (req, res) => {
   const query = Site.find();
   query instanceof mongoose.Query;
   const docs = await query;
-
   let keyList = [];
   let values = [];
   let valuesIndex = [];
   if (docs != false) {
     const keyValue = Object.keys(docs[0]._doc);
-    for (let i = 1; i < keyValue.length - 2; i++) {
+    for (let i = 1; i < keyValue.length - 1; i++) {
       keyList.push(keyValue[i]);
     }
     for (let j = 0; j < docs.length; j++) {
@@ -33,15 +32,16 @@ export const getSitelist = async (req, res) => {
       values.push(valuesObj);
     }
   }
-  return res.render("sitelist", { pageTitle: "sitelist", keyList, values });
+  console.log(values);
+  return res.render("sitelist", { pageTitle: "sitelist", keyList, values, _id });
 };
 
 export const postSiteForm = async (req, res) => {
   const { siteUrl, siteName, owner } = req.body;
   await Site.create({
+    owner: req.session.user._id,
     siteUrl,
     siteName: siteName,
-    owner: req.session.user._id,
   });
   res.redirect("/");
 };

@@ -8,15 +8,15 @@ block content
                 +addField(item)  
         div
             each item in values
-                +addValue(item)     
+                +addValue(item)
     input.addBtn#open(type="button", value="✚")
 
     form.modal__form(method="post") 
         div.modal.hidden
             div.modal__overlay
             div.modal__content
-                input(placeholder="Url", type="text", name="siteUrl",required)
-                input(placeholder="사이트명", type="text", name="siteName",required)
+                input.siteUrl(placeholder="Url", type="text", name="siteUrl",required)
+                input.siteName(placeholder="사이트명", type="text", name="siteName",required)
                 input(type="submit", value="저장")
         script.
             const openButton = document.getElementById("open");
@@ -28,6 +28,10 @@ block content
 
             const closeModal = () => {
                 modal.classList.add("hidden");
+                const siteUrl = document.querySelector(".siteUrl");
+                const siteName = document.querySelector(".siteName");
+                siteUrl.value="";
+                siteName.value="";
             }
             overlay.addEventListener("click", closeModal);
             openButton.addEventListener("click", openModal);
