@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
   allowingEmail: { type: Boolean },
   allowingSMS: { type: Boolean },
   company: { type: String },
-  date_join: { type: Date },
+  date_join: { type: Date, default: Date.now },
   date_lastLogin: { type: Date },
   address: { type: String, required: true },
 });

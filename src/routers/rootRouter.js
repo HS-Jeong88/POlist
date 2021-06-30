@@ -7,6 +7,7 @@ import {
   postSiteForm,
   getAutoLogin,
   postAutoLogin,
+  deleteRow,
 } from "../controllers/videoController";
 import { publicOnlyMiddleware, homeMiddleware } from "../middlewares";
 
@@ -14,6 +15,7 @@ const rootRouter = express.Router();
 
 rootRouter.route(`/`).all(homeMiddleware).get(home);
 rootRouter.route(`/sitelist`).get(getSitelist).post(postSiteForm);
+rootRouter.route(`/deleteRow`).post(deleteRow);
 rootRouter.route(`/autologin`).get(getAutoLogin).post(postAutoLogin);
 rootRouter.route(`/login`).all(publicOnlyMiddleware).get(getLogin).post(postLogin);
 rootRouter.route(`/join`).all(publicOnlyMiddleware).get(getJoin).post(postJoin);

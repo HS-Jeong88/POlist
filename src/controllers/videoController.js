@@ -32,7 +32,6 @@ export const getSitelist = async (req, res) => {
       values.push(valuesObj);
     }
   }
-  console.log(values);
   return res.render("sitelist", { pageTitle: "sitelist", keyList, values, _id });
 };
 
@@ -197,4 +196,10 @@ export const search = async (req, res) => {
     }).populate("owner");
   }
   return res.render("search", { pageTitle: "Search", lists });
+};
+
+export const deleteRow = async (req, res) => {
+  const { getUrl } = req.body;
+  const row = await Site.find({ siteUrl: req.body.getUrl }).remove();
+  return res.redirect("/");
 };
