@@ -1,36 +1,102 @@
 form:not(.modal__form):not(.siteForm) {
-  max-width: 420px;
+  max-width: 520px;
   margin: 0 auto;
-  &:not(.search__form) {
-    padding: 30px;
-    background-color: rgba($color: $bg, $alpha: 0.7);
-    border-radius: 10px;
-    border: 1px solid rgba($color: #fff, $alpha: 0.1);
-  }
+  padding: 30px;
+  background-color: rgba($color: #fcf8ec, $alpha: 1);
 }
-
-input:not(input[type="range"]):not(input[type="radio"]):not(input[type="checkbox"]):not(input[type="button"]) {
-  all: unset;
-  padding: 15px 20px;
-  border-radius: 5px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background-color: black;
-  margin-bottom: 5px;
-  font-size: 16px;
-  color: white;
-  width: 90%;
-  &::placeholder {
-    color: rgba(255, 255, 255, 0.7);
+.joinForm {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    all: unset;
+    margin: 0.2em;
+    padding: 10px 20px;
+    border-radius: 2px;
+    border: 2px solid rgba(199, 159, 151, 1);
+    color: #5d5d5d;
+    background-color: transparent;
+    font-size: 16px;
+    width: 90%;
   }
-}
-
-input[type="submit"],
-.social__btn {
-  border-radius: 5px;
-  padding: 12px 20px;
-  background-color: white;
-  color: rgba($color: $red, $alpha: 1);
-  text-align: center;
-  cursor: pointer;
-  display: block;
+  .top {
+    display: flex;
+    justify-content: center;
+    color: #c79f97;
+  }
+  .middle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .contents {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 15px;
+      color: #c79f97;
+      .left {
+        width: 20%;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .center {
+        display: flex;
+        flex-direction: row;
+        width: 60%;
+        .phoneNum1,
+        .phoneNum2,
+        .phoneNum3 {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+        }
+        .email1,
+        .email2,
+        .email3 {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          select {
+            width: 85px;
+            padding: 0.8em 0.5em;
+            margin: 0.2em;
+            border: 1px solid #999;
+            font-family: inherit;
+            border-radius: 0px;
+            background-color: #c79f97;
+            color: #fcf8ec;
+          }
+          .select-arrow {
+            pointer-events: none;
+            border-width: 8px 5px 0 5px;
+            border-style: solid;
+            border-color: #999 transparent transparent tramsparent;
+          }
+        }
+      }
+      .right {
+        width: 15%;
+      }
+      input[type="button"] {
+        background-color: #c79f97;
+        color: #fcf8ec;
+        cursor: pointer;
+        height: 41px;
+        margin: 0.2em;
+        padding: 10px 20px;
+      }
+      input[type="submit"] {
+        border-radius: 5px;
+        padding: 12px 20px;
+        color: rgba(199, 159, 151, 1);
+        text-align: center;
+        cursor: pointer;
+        display: block;
+        font-weight: bold;
+      }
+    }
+  }
 }

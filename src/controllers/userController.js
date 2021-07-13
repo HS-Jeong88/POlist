@@ -4,15 +4,21 @@ import bcrypt from "bcrypt";
 
 export const getJoin = (req, res) => res.render("join", { pageTitle: "Join" });
 export const postJoin = async (req, res) => {
+  console.log(req.body);
   const {
     userId,
     password,
     password2,
     name,
     nickname,
-    phoneNumber,
+    phoneNum1,
+    phoneNum2,
+    phoneNum3,
+    zipCode,
     address,
-    email,
+    detailAddress,
+    email1,
+    email2,
     birth,
     gender,
   } = req.body;
@@ -21,22 +27,31 @@ export const postJoin = async (req, res) => {
   if (password !== password2) {
     return res
       .status(400)
-      .render("join", { pageTitle, errorMessage: "Password confirmation does not match." });
+      .render("join", { pageTitle, errorMessage: "비밀번호가 일치하지 않습니다" });
   }
-  const exists = await User.exists({
+  const existsId = await User.exists({
     $or: [
       {
         userId,
       },
+    ],
+  });
+  if (existsId) {
+    return res
+      .status(400)
+      .render("join", { pageTitle, errorMessage: "이미 존재하는 아이디 입니다" });
+  }
+  const existsEmail = await User.exists({
+    $or: [
       {
-        email,
+        email: `${email1}@${email2}`,
       },
     ],
   });
-  if (exists) {
+  if (existsEmail) {
     return res
       .status(400)
-      .render("join", { pageTitle, errorMessage: "This ID/email is already taken." });
+      .render("join", { pageTitle, errorMessage: "이미 존재하는 이메일 입니다" });
   }
   try {
     await User.create({
@@ -44,15 +59,17 @@ export const postJoin = async (req, res) => {
       password,
       name,
       nickname,
-      phoneNumber,
+      phoneNumber: `${phoneNum1}${phoneNum2}${phoneNum3}`,
+      zipCode,
       address,
-      email,
+      detailAddress,
+      email: `${email1}@${email2}`,
       birth,
       gender,
       allowingEmail: allowingEmail === "Email" ? (allowingEmail = true) : (allowingEmail = false),
       allowingSMS: allowingSMS === "SMS" ? (allowingSMS = true) : (allowingSMS = false),
     });
-    return res.redirect("/login");
+    return res.redirect("/");
   } catch (error) {
     console.log(error);
     return res.status(400).render("join", {
@@ -68,13 +85,12 @@ export const postLogin = async (req, res) => {
   const pageTitle = "Login";
   const user = await User.findOne({ userId });
   if (!user) {
-    return res
-      .status(400)
-      .render("login", { pageTitle, errorMessage: "An account with this ID does not exists." });
+    req.flash("error", "this ID does not exists.");
+    return res.status(400).render("index", { pageTitle, errorMessage: "this ID does not exists." });
   }
   const ok = await bcrypt.compare(password, user.password);
   if (!ok) {
-    return res.status(400).render("login", { pageTitle, errorMessage: "Wrong password" });
+    return res.status(400).render("index", { pageTitle, errorMessage: "Wrong password" });
   }
   req.session.loggedIn = true;
   req.session.user = user;

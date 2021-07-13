@@ -8,7 +8,9 @@ const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   nickname: { type: String },
   phoneNumber: { type: String, required: true },
+  zipCode: { type: String, required: true },
   address: { type: String, required: true },
+  detailAddress: { type: String },
   email: { type: String, required: true, unique: true },
   birth: { type: String, required: true },
   gender: { type: String },
@@ -17,7 +19,6 @@ const userSchema = new mongoose.Schema({
   company: { type: String },
   date_join: { type: Date, default: Date.now },
   date_lastLogin: { type: Date },
-  address: { type: String, required: true },
 });
 
 userSchema.pre("save", async function () {

@@ -12,8 +12,6 @@ mixin addValue(obj)
             span.value=obj.siteUrl  
           div.contents
             span.value=obj.siteName
-          input(placeholder="아이디",type="text", name="inputId")
-          input(placeholder="비밀번호",type="password", name="inputPw")
           input(type="submit", value="자동로그인")
           input.deleteRowBtn(type="button", value="삭제", onclick=`deleteSite()`,name=`${obj.siteUrl}`)
 
