@@ -1,5 +1,10 @@
+div.contents 
+  input.selectSite(type="checkbox", name="selectSite", onclick="selectAll(this)") 
+  |전체선택
+div.contents 
+  input(type="button", value="전체로그인", onclick="loginAll()")
 mixin addField(str)
-  if str!=="owner"
+  if str !== "owner"
     div.contents=str 
 
 mixin addValue(obj)
@@ -8,6 +13,8 @@ mixin addValue(obj)
       form.autologin.siteForm(method="post",action="/autologin",name=`${obj.siteUrl}`) 
         input(type="hidden", name="getUrl", value=`${obj.siteUrl}`)
         div.contents
+          div.contents
+            input.selectSite(type="checkbox", name="selectSite")
           div.contents
             span.value=obj.siteUrl  
           div.contents
@@ -21,4 +28,22 @@ mixin addValue(obj)
               const targetForm = deleteBtn.parentNode.parentNode
               targetForm.action="/deleteRow"
               targetForm.submit()
+            }
+            function loginAll(){
+              const loginAllBtn = event.target 
+              const targetForm = document.querySelector(".siteForm")
+              targetFrom.action="/siteLIst"
+              targetForm.submit()
+            }
+            function selectAll(selectAll){
+              const checkbox = document.getElementsByName("selectSite")
+              let i = 1
+              let urlArray = [];
+              checkbox.forEach((check) => {
+                check.checked = selectAll.checked
+                if(i !== 1)
+                  urlArray.push(check.parentNode.nextSibling.firstChild.innerText)
+                i++
+              })
+              console.log(urlArray)
             }

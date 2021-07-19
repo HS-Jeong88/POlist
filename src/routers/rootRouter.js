@@ -8,11 +8,13 @@ import {
   getAutoLogin,
   postAutoLogin,
   deleteRow,
+  worker,
 } from "../controllers/mainController";
 import { publicOnlyMiddleware, homeMiddleware } from "../middlewares";
 
 const rootRouter = express.Router();
 
+// rootRouter.route(`/`).all(homeMiddleware).get(index).post(worker);
 rootRouter.route(`/`).all(homeMiddleware).get(index).post(postLogin);
 rootRouter.route(`/sitelist`).get(getSitelist).post(postSiteForm);
 rootRouter.route(`/deleteRow`).post(deleteRow);
