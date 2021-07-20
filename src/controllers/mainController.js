@@ -499,7 +499,7 @@ export const postAutoLogin = async (req, res) => {
   };
   await run();
   res.redirect("/");
-  await new Promise((r) => setTimeout(r, 5000));
+  // await new Promise((r) => setTimeout(r, 5000));
   await shell.exec("killall chromedriver");
 };
 
