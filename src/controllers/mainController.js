@@ -54,13 +54,7 @@ export const getAutoLogin = async (req, res) => {
 export const postAutoLogin = async (req, res) => {
   let service = new chrome.ServiceBuilder(process.env.CHROME_DRIVER_PATH).build();
   chrome.setDefaultService(service);
-  let driver = await new webdriver.Builder()
-    .forBrowser("chrome")
-    .build()
-    .catch((e) => {
-      console.log(e);
-      driver.quit();
-    });
+  let driver = await new webdriver.Builder().forBrowser("chrome").build();
   await driver.manage().setTimeouts({
     implicit: 10000,
     pageLoad: 45000,
