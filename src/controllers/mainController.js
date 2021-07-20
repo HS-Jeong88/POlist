@@ -5,9 +5,10 @@ import mongoose from "mongoose";
 import webdriver, { Browser } from "selenium-webdriver";
 import { Builder, By, Key, until } from "selenium-webdriver";
 import chrome, { Driver } from "selenium-webdriver/chrome";
-import clipboardy from "clipboardy";
 import shell from "shelljs";
 import os from "os";
+const child_process = require("child_process");
+const COPY_APP = "pbcopy";
 
 export let chromeDriverCounter = 0;
 export const home = async (req, res) => {
@@ -64,7 +65,11 @@ export const postAutoLogin = async (req, res) => {
   await driver.manage().window().maximize();
   const { getUrl } = req.body;
   const { setId, setPw } = User;
-
+  function copyText(data, encoding = "utf8") {
+    const proc = child_process.spawn(COPY_APP);
+    proc.stdin.write(data, { encoding });
+    proc.stdin.end();
+  }
   const run = async () => {
     chromeDriverCounter = 1;
     let setId = "csdefrag";
@@ -75,12 +80,12 @@ export const postAutoLogin = async (req, res) => {
       await loginBtn.click();
       const idInput = await driver.findElement(By.css(id));
       await new Promise((r) => setTimeout(r, 500));
-      clipboardy.write(setId);
+      copyText("csdefrag");
       await idInput.click();
       await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
       const pwInput = await driver.findElement(By.css(pw));
       await new Promise((r) => setTimeout(r, 500));
-      clipboardy.write(setPw);
+      copyText("captain1121!");
       await pwInput.click();
       await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
       await new Promise((r) => setTimeout(r, 500));
@@ -102,12 +107,12 @@ export const postAutoLogin = async (req, res) => {
       await loginBtn.click();
       const idInput = await driver.findElement(By.css(id));
       await new Promise((r) => setTimeout(r, 500));
-      clipboardy.write(setId);
+      copyText(setId);
       await idInput.click();
       await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
       const pwInput = await driver.findElement(By.css(pw));
       await new Promise((r) => setTimeout(r, 500));
-      clipboardy.write(setPw);
+      copyText(setPw);
       await pwInput.click();
       await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
       await new Promise((r) => setTimeout(r, 500));
@@ -128,12 +133,12 @@ export const postAutoLogin = async (req, res) => {
       await loginBtn.click();
       await new Promise((r) => setTimeout(r, 500));
       const idInput = await driver.findElement(By.css(id));
-      clipboardy.write(setId);
+      copyText(setId);
       await idInput.click();
       await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
       await new Promise((r) => setTimeout(r, 500));
       const pwInput = await driver.findElement(By.css(pw));
-      clipboardy.write(setPw);
+      copyText(setPw);
       await pwInput.click();
       await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
       await new Promise((r) => setTimeout(r, 500));
@@ -157,12 +162,12 @@ export const postAutoLogin = async (req, res) => {
       await new Promise((r) => setTimeout(r, 500));
       const inputId = await driver.findElement(By.css(id));
       await inputId.click();
-      await clipboardy.write(setId);
+      await copyText(setId);
       await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
       await new Promise((r) => setTimeout(r, 500));
       const inputPw = await driver.findElement(By.css(pw));
       await inputPw.click();
-      await clipboardy.write(setPw);
+      await copyText(setPw);
       await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
       await new Promise((r) => setTimeout(r, 500));
       await driver.actions().keyUp(Key.COMMAND).keyDown(Key.RETURN).perform();
@@ -187,12 +192,12 @@ export const postAutoLogin = async (req, res) => {
       await new Promise((r) => setTimeout(r, 500));
       const inputId = await driver.findElement(By.css(id));
       await inputId.click();
-      await clipboardy.write(setId);
+      await copyText(setId);
       await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
       await new Promise((r) => setTimeout(r, 500));
       const inputPw = await driver.findElement(By.css(pw));
       await inputPw.click();
-      await clipboardy.write(setPw);
+      await copyText(setPw);
       await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
       await new Promise((r) => setTimeout(r, 500));
       await driver.actions().keyUp(Key.COMMAND).keyDown(Key.RETURN).perform();
@@ -230,12 +235,12 @@ export const postAutoLogin = async (req, res) => {
       await menuBtn.click();
       const idInput = await driver.findElement(By.css(id));
       await new Promise((r) => setTimeout(r, 500));
-      clipboardy.write(setId);
+      copyText(setId);
       await idInput.click();
       await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
       const pwInput = await driver.findElement(By.css(pw));
       await new Promise((r) => setTimeout(r, 500));
-      clipboardy.write(setPw);
+      copyText(setPw);
       await pwInput.click();
       await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
       await new Promise((r) => setTimeout(r, 500));
