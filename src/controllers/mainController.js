@@ -6,8 +6,11 @@ import webdriver, { Browser } from "selenium-webdriver";
 import { Builder, By, Key, until } from "selenium-webdriver";
 import chrome, { Driver } from "selenium-webdriver/chrome";
 import clipboardy from "clipboardy";
-import { LibManifestPlugin } from "webpack";
+import unload from "unload";
+import process from "process";
+import shell from "shelljs";
 
+export let chromeDriverCounter = 0;
 export const home = async (req, res) => {
   return res.render("home", { pageTitle: "Home" });
 };
@@ -50,18 +53,26 @@ export const getAutoLogin = async (req, res) => {
   res.redirect("/");
 };
 export const postAutoLogin = async (req, res) => {
-  // const { getUrl } = req.body;
-  const { setId, setPw } = User;
-  const service = new chrome.ServiceBuilder(process.env.CHROME_DRIVER_PATH).build();
+  let service = new chrome.ServiceBuilder(process.env.CHROME_DRIVER_PATH).build();
   chrome.setDefaultService(service);
-  const driver = await new webdriver.Builder().forBrowser("chrome").build();
+  let driver = await new webdriver.Builder()
+    .forBrowser("chrome")
+    .build()
+    .catch((e) => {
+      console.log(e);
+      driver.quit();
+    });
   await driver.manage().setTimeouts({
     implicit: 10000,
     pageLoad: 45000,
     script: 45000,
   });
   await driver.manage().window().maximize();
+  // const { getUrl } = req.body;
+  const { setId, setPw } = User;
+
   const run = async () => {
+    chromeDriverCounter = 1;
     let setId = "csdefrag";
     let setPw = "captain1121!";
     const autoLogin = async (lb, setId, setPw, id, pw) => {
@@ -247,12 +258,10 @@ export const postAutoLogin = async (req, res) => {
     };
     console.log(req.body);
     let urlArray = [
-      "http://odiya.kr/",
-      "https://www.onesbyblog.co.kr/",
-      "https://cometoplay.kr/",
-      "https://reviewplace.co.kr/",
-      "https://highblog.co.kr/",
-      "http://m-link.shop/",
+      "https://www.npmjs.com/package/unload",
+      "https://www.npmjs.com/package/unload",
+      "https://www.npmjs.com/package/unload",
+      "https://www.npmjs.com/package/unload",
     ];
     for (let i = 0; i < urlArray.length; i++) {
       const getUrl = urlArray[i];
@@ -493,14 +502,9 @@ export const postAutoLogin = async (req, res) => {
         );
       }
     }
-    Window.onunload = async (event) => {
-      event.preventDefault();
-      await driver.quit();
-    };
-    // setTimeout(async () => {
-    // }, 3000);
   };
-  run();
+  await run();
+  await shell.exec("killall chromedriver");
   res.redirect("/");
 };
 
