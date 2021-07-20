@@ -17,6 +17,8 @@ export const home = async (req, res) => {
   return res.render("home", { pageTitle: "Home" });
 };
 export const getSitelist = async (req, res) => {
+  console.log(os.type());
+  console.log(os.platform());
   const {
     user: { _id },
   } = req.session;
