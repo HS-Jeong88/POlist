@@ -1,5 +1,5 @@
 div.contents 
-  input.selectSite(type="checkbox", name="selectSite", onclick="selectAll(this)") 
+  input.selectSiteAll(type="checkbox", name="selectSite", onclick="selectAll(this)") 
   |전체선택
 div.contents 
   input(type="button", value="전체로그인", onclick=`loginAll()`)
@@ -16,22 +16,24 @@ mixin addValue(obj)
           div.contents
             input.selectSite(type="checkbox", name="selectSite")
           div.contents
-            span.value=obj.siteUrl  
+            span.value=obj.siteUrl 
           div.contents
             span.value=obj.siteName
           input(type="submit", value="자동로그인")
           input.deleteRowBtn(type="button", value="삭제", onclick=`deleteSite()`,name=`${obj.siteUrl}`)
 
           script.
+            function loginAll(){
+              const checkboxArray = []
+              const countCheckbox = document.querySelectorAll(".selectSite")
+              for(let i = 0; i < countCheckbox.length; i++)
+                checkboxArray.push(countCheckbox[i].parentNode.parentNode.childNodes[1].innerText)
+            }
             function deleteSite(){
               const deleteBtn = event.target
               const targetForm = deleteBtn.parentNode.parentNode
               targetForm.action="/deleteRow"
               targetForm.submit()
-            }
-            function loginAll(){
-              const countCheckBox = document.querySelectorAll("input[type='checkbox']")                                    
-              console.log(countCheckBox.length)
             }
             function selectAll(selectAll){
               const checkbox = document.getElementsByName("selectSite")

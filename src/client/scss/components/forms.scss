@@ -100,3 +100,20 @@ form:not(.modal__form):not(.siteForm) {
     }
   }
 }
+.fieldAlign {
+  display: grid;
+  grid-template-columns: 280px 240px;
+  justify-items: center;
+}
+.siteForm {
+  .contents {
+    display: grid;
+    grid-template-columns: 100px 200px 200px 100px 100px;
+    grid-template-rows: 1fr;
+    gap: 10px 20px;
+    align-items: center;
+    span {
+      text-align: center;
+    }
+  }
+}

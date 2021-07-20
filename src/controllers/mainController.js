@@ -178,9 +178,7 @@ export const postAutoLogin = async (req, res) => {
         .then(function (alert) {
           alert.accept();
         })
-        .catch(function (error) {
-          console.log(error);
-        });
+        .catch(function (error) {});
     };
     const naverAutoLogin = async (lb, nlb, setId, setPw, id, pw) => {
       // targetElement = driver.findElement(By.tagName("ins"));
