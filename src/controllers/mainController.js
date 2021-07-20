@@ -7,6 +7,7 @@ import { Builder, By, Key, until } from "selenium-webdriver";
 import chrome, { Driver } from "selenium-webdriver/chrome";
 import clipboardy from "clipboardy";
 import shell from "shelljs";
+import os from "os";
 
 export let chromeDriverCounter = 0;
 export const home = async (req, res) => {
@@ -500,7 +501,11 @@ export const postAutoLogin = async (req, res) => {
   await run();
   res.redirect("/");
   // await new Promise((r) => setTimeout(r, 5000));
-  await shell.exec("killall chromedriver");
+  if (os.type() == "Darwin") {
+    await shell.exec("killall chromedriver");
+  } else if (os.type() == "Windows") {
+    await shell.exec("taskkill /f /im chromedriver.exe");
+  }
 };
 
 export const deleteRow = async (req, res) => {

@@ -2,7 +2,7 @@ div.contents
   input.selectSite(type="checkbox", name="selectSite", onclick="selectAll(this)") 
   |전체선택
 div.contents 
-  input(type="button", value="전체로그인", onclick="loginAll()")
+  input(type="button", value="전체로그인", onclick=`loginAll()`)
 mixin addField(str)
   if str !== "owner"
     div.contents=str 
@@ -30,10 +30,8 @@ mixin addValue(obj)
               targetForm.submit()
             }
             function loginAll(){
-              const loginAllBtn = event.target 
-              const targetForm = document.querySelector(".siteForm")
-              targetFrom.action="/siteLIst"
-              targetForm.submit()
+              const countCheckBox = document.querySelectorAll("input[type='checkbox']")                                    
+              console.log(countCheckBox.length)
             }
             function selectAll(selectAll){
               const checkbox = document.getElementsByName("selectSite")
