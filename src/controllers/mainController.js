@@ -9,6 +9,9 @@ import shell from "shelljs";
 import os from "os";
 const child_process = require("child_process");
 
+const COPY_APP = "xclip";
+// const COPY_APP = "pbcopy";
+
 export let chromeDriverCounter = 0;
 export const home = async (req, res) => {
   return res.render("home", { pageTitle: "Home" });
@@ -54,11 +57,6 @@ export const getAutoLogin = async (req, res) => {
   res.redirect("/");
 };
 export const postAutoLogin = async (req, res) => {
-  if (os.type() == "Linux") {
-    const COPY_APP = "xclip";
-  } else if (os.type() == "Darwin") {
-    const COPY_APP = "pbcopy";
-  }
   console.log(os.type());
   console.log(os.platform());
   let service = new chrome.ServiceBuilder(process.env.CHROME_DRIVER_PATH).build();
