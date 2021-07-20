@@ -8,7 +8,6 @@ import {
   getAutoLogin,
   postAutoLogin,
   deleteRow,
-  worker,
 } from "../controllers/mainController";
 import { publicOnlyMiddleware, homeMiddleware } from "../middlewares";
 

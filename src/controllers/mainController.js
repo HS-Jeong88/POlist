@@ -6,8 +6,6 @@ import webdriver, { Browser } from "selenium-webdriver";
 import { Builder, By, Key, until } from "selenium-webdriver";
 import chrome, { Driver } from "selenium-webdriver/chrome";
 import clipboardy from "clipboardy";
-import unload from "unload";
-import process from "process";
 import shell from "shelljs";
 
 export let chromeDriverCounter = 0;
@@ -68,7 +66,7 @@ export const postAutoLogin = async (req, res) => {
     script: 45000,
   });
   await driver.manage().window().maximize();
-  // const { getUrl } = req.body;
+  const { getUrl } = req.body;
   const { setId, setPw } = User;
 
   const run = async () => {
@@ -257,14 +255,10 @@ export const postAutoLogin = async (req, res) => {
         .catch(function (error) {});
     };
     console.log(req.body);
-    let urlArray = [
-      "https://www.npmjs.com/package/unload",
-      "https://www.npmjs.com/package/unload",
-      "https://www.npmjs.com/package/unload",
-      "https://www.npmjs.com/package/unload",
-    ];
+    let urlArray = [];
+    urlArray.push(req.body.getUrl);
     for (let i = 0; i < urlArray.length; i++) {
-      const getUrl = urlArray[i];
+      // const getUrl = urlArray[i];
       if (i === 0) {
         await driver.get(getUrl);
       } else {
@@ -504,8 +498,9 @@ export const postAutoLogin = async (req, res) => {
     }
   };
   await run();
-  await shell.exec("killall chromedriver");
   res.redirect("/");
+  await new Promise((r) => setTimeout(r, 5000));
+  await shell.exec("killall chromedriver");
 };
 
 export const deleteRow = async (req, res) => {
