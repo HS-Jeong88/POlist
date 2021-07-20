@@ -498,12 +498,11 @@ export const postAutoLogin = async (req, res) => {
   };
   await run();
   res.redirect("/");
-  // await new Promise((r) => setTimeout(r, 5000));
-  // if (os.type() == "Darwin") {
-  //   await shell.exec("killall chromedriver");
-  // } else if (os.type() == "Windows") {
-  //   await shell.exec("taskkill /f /im chromedriver.exe");
-  // }
+  if (os.type() == "Darwin") {
+    await shell.exec("killall chromedriver");
+  } else if (os.type() == "Windows") {
+    await shell.exec("taskkill /f /im chromedriver.exe");
+  }
 };
 
 export const deleteRow = async (req, res) => {
