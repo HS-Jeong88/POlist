@@ -8,7 +8,9 @@ import chrome, { Driver } from "selenium-webdriver/chrome";
 import shell from "shelljs";
 import os from "os";
 const child_process = require("child_process");
-const COPY_APP = "pbcopy";
+
+const COPY_APP = "xclip";
+// const COPY_APP = "pbcopy";
 
 export let chromeDriverCounter = 0;
 export const home = async (req, res) => {
@@ -53,6 +55,8 @@ export const getAutoLogin = async (req, res) => {
   res.redirect("/");
 };
 export const postAutoLogin = async (req, res) => {
+  console.log(os.type());
+  console.log(os.platform());
   let service = new chrome.ServiceBuilder(process.env.CHROME_DRIVER_PATH).build();
   chrome.setDefaultService(service);
 
