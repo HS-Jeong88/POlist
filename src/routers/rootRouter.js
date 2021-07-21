@@ -8,7 +8,7 @@ import {
   getAutoLogin,
   postAutoLogin,
   deleteRow,
-} from "../controllers/mainController";
+} from "../controllers/mainController.mjs";
 import { publicOnlyMiddleware, homeMiddleware } from "../middlewares";
 
 const rootRouter = express.Router();

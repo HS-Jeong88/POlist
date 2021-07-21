@@ -3,7 +3,7 @@ import "dotenv/config";
 import "./db";
 import "./models/User";
 import app from "./server";
-import { chromeDriverCounter } from "./controllers/mainController";
+import { chromeDriverCounter } from "./controllers/mainController.mjs";
 
 const PORT = process.env.PORT || 5000;
 

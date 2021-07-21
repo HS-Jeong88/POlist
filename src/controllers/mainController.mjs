@@ -86,12 +86,20 @@ export const postAutoLogin = async (req, res) => {
       await loginBtn.click();
       const idInput = await driver.findElement(By.css(id));
       await new Promise((r) => setTimeout(r, 500));
-      await xsel.set(setId);
+      if (os.type() == "Linux") {
+        await xsel.set(setId);
+      } else {
+        clipboardy.write(setId);
+      }
       await idInput.click();
       await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
       const pwInput = await driver.findElement(By.css(pw));
       await new Promise((r) => setTimeout(r, 500));
-      await xsel.set(setPw);
+      if (os.type() == "Linux") {
+        await xsel.set(setPw);
+      } else {
+        clipboardy.write(setPw);
+      }
       await pwInput.click();
       await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
       await new Promise((r) => setTimeout(r, 500));
@@ -114,11 +122,16 @@ export const postAutoLogin = async (req, res) => {
       const idInput = await driver.findElement(By.css(id));
       await new Promise((r) => setTimeout(r, 500));
       await xsel.set(setId);
+      clipboardy.write(setId);
       await idInput.click();
       await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
       const pwInput = await driver.findElement(By.css(pw));
       await new Promise((r) => setTimeout(r, 500));
-      await xsel.set(setPw);
+      if (os.type() == "Linux") {
+        await xsel.set(setPw);
+      } else {
+        clipboardy.write(setPw);
+      }
       await pwInput.click();
       await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
       await new Promise((r) => setTimeout(r, 500));
@@ -140,11 +153,16 @@ export const postAutoLogin = async (req, res) => {
       await new Promise((r) => setTimeout(r, 500));
       const idInput = await driver.findElement(By.css(id));
       await xsel.set(setId);
+      clipboardy.write(setId);
       await idInput.click();
       await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
       await new Promise((r) => setTimeout(r, 500));
       const pwInput = await driver.findElement(By.css(pw));
-      await xsel.set(setPw);
+      if (os.type() == "Linux") {
+        await xsel.set(setPw);
+      } else {
+        clipboardy.write(setPw);
+      }
       await pwInput.click();
       await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
       await new Promise((r) => setTimeout(r, 500));
@@ -169,11 +187,16 @@ export const postAutoLogin = async (req, res) => {
       const inputId = await driver.findElement(By.css(id));
       await inputId.click();
       await await xsel.set(setId);
+      clipboardy.write(setId);
       await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
       await new Promise((r) => setTimeout(r, 500));
       const inputPw = await driver.findElement(By.css(pw));
       await inputPw.click();
-      await await xsel.set(setPw);
+      if (os.type() == "Linux") {
+        await await xsel.set(setPw);
+      } else {
+        clipboardy.write(setPw);
+      }
       await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
       await new Promise((r) => setTimeout(r, 500));
       await driver.actions().keyUp(Key.COMMAND).keyDown(Key.RETURN).perform();
@@ -199,11 +222,16 @@ export const postAutoLogin = async (req, res) => {
       const inputId = await driver.findElement(By.css(id));
       await inputId.click();
       await await xsel.set(setId);
+      clipboardy.write(setId);
       await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
       await new Promise((r) => setTimeout(r, 500));
       const inputPw = await driver.findElement(By.css(pw));
       await inputPw.click();
-      await await xsel.set(setPw);
+      if (os.type() == "Linux") {
+        await await xsel.set(setPw);
+      } else {
+        clipboardy.write(setPw);
+      }
       await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
       await new Promise((r) => setTimeout(r, 500));
       await driver.actions().keyUp(Key.COMMAND).keyDown(Key.RETURN).perform();
@@ -242,11 +270,16 @@ export const postAutoLogin = async (req, res) => {
       const idInput = await driver.findElement(By.css(id));
       await new Promise((r) => setTimeout(r, 500));
       await xsel.set(setId);
+      clipboardy.write(setId);
       await idInput.click();
       await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
       const pwInput = await driver.findElement(By.css(pw));
       await new Promise((r) => setTimeout(r, 500));
-      await xsel.set(setPw);
+      if (os.type() == "Linux") {
+        await xsel.set(setPw);
+      } else {
+        clipboardy.write(setPw);
+      }
       await pwInput.click();
       await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
       await new Promise((r) => setTimeout(r, 500));
