@@ -3,7 +3,18 @@ import "dotenv/config";
 import "./db";
 import "./models/User";
 import app from "./server";
-import { chromeDriverCounter } from "./controllers/mainController.mjs";
+
+// (function () {
+//   var childProcess = require("child_process");
+//   var oldSpawn = childProcess.spawn;
+//   function mySpawn() {
+//     console.log("spawn called");
+//     console.log(arguments);
+//     var result = oldSpawn.apply(this, arguments);
+//     return result;
+//   }
+//   childProcess.spawn = mySpawn;
+// })();
 
 const PORT = process.env.PORT || 5000;
 

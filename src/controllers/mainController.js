@@ -7,14 +7,38 @@ import { Builder, By, Key, until } from "selenium-webdriver";
 import chrome, { Driver } from "selenium-webdriver/chrome";
 import shell from "shelljs";
 import os from "os";
-import clipboardy from "clipboardy";
-import xsel from "xsel";
-// const child_process = require("child_process");
 
+// import child_process from "child_process";
+// Copy to clipboard in node.js
+// const child_process = require('child_process')
+
+// This uses an external application for clipboard access, so fill it in here
+// Some options: pbcopy (macOS), xclip (Linux or anywhere with Xlib)
 // const COPY_APP = "xclip";
-// const COPY_APP = "pbcopy";
+
+// function copy(data, encoding = "utf8") {
+//   const proc = child_process.exec(COPY_APP);
+//   proc.stdin.write(data, { encoding });
+//   proc.stdin.end();
+// }
+
+function setClipboard(text) {
+  var type = "text/plain";
+  var blob = new Blob([text], { type });
+  var data = [new ClipboardItem({ [type]: blob })];
+
+  navigator.clipboard.write(data).then(
+    function () {
+      /* success */
+    },
+    function () {
+      /* failure */
+    }
+  );
+}
 
 export let chromeDriverCounter = 0;
+
 export const home = async (req, res) => {
   return res.render("home", { pageTitle: "Home" });
 };
@@ -71,13 +95,19 @@ export const postAutoLogin = async (req, res) => {
   await driver.manage().window().maximize();
   const { getUrl } = req.body;
   const { setId, setPw } = User;
-  // function copyText(data, encoding = "utf8") {
-  //   const proc = child_process.spawn(COPY_APP);
-  //   proc.stdin.write(data, { encoding });
-  //   proc.stdin.end();
-  // }
   const run = async () => {
     chromeDriverCounter = 1;
+    let typingArray = [];
+    async function autoTyping(text) {
+      typingArray.push(text);
+      for (let i = 0; i < typingArray[0].length; i++) {
+        await new Promise((r) => setTimeout(r, 100));
+        await driver.actions().keyDown(typingArray[0][i]).perform();
+        await new Promise((r) => setTimeout(r, 100));
+        await driver.actions().keyUp(typingArray[0][i]).perform();
+      }
+      typingArray = [];
+    }
     let setId = "csdefrag";
     let setPw = "captain1121!";
     const autoLogin = async (lb, setId, setPw, id, pw) => {
@@ -86,22 +116,14 @@ export const postAutoLogin = async (req, res) => {
       await loginBtn.click();
       const idInput = await driver.findElement(By.css(id));
       await new Promise((r) => setTimeout(r, 500));
-      if (os.type() == "Linux") {
-        await xsel.set(setId);
-      } else {
-        clipboardy.write(setId);
-      }
       await idInput.click();
-      await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
+      await new Promise((r) => setTimeout(r, 500));
+      await autoTyping(setId);
       const pwInput = await driver.findElement(By.css(pw));
       await new Promise((r) => setTimeout(r, 500));
-      if (os.type() == "Linux") {
-        await xsel.set(setPw);
-      } else {
-        clipboardy.write(setPw);
-      }
       await pwInput.click();
-      await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
+      await new Promise((r) => setTimeout(r, 500));
+      await autoTyping(setPw);
       await new Promise((r) => setTimeout(r, 500));
       await driver.actions().keyUp(Key.COMMAND).keyDown(Key.RETURN).perform();
       await driver
@@ -121,19 +143,14 @@ export const postAutoLogin = async (req, res) => {
       await loginBtn.click();
       const idInput = await driver.findElement(By.css(id));
       await new Promise((r) => setTimeout(r, 500));
-      await xsel.set(setId);
-      clipboardy.write(setId);
       await idInput.click();
-      await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
+      await new Promise((r) => setTimeout(r, 500));
+      await autoTyping(setId);
       const pwInput = await driver.findElement(By.css(pw));
       await new Promise((r) => setTimeout(r, 500));
-      if (os.type() == "Linux") {
-        await xsel.set(setPw);
-      } else {
-        clipboardy.write(setPw);
-      }
       await pwInput.click();
-      await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
+      await new Promise((r) => setTimeout(r, 500));
+      await autoTyping(setPw);
       await new Promise((r) => setTimeout(r, 500));
       await driver.actions().keyUp(Key.COMMAND).keyDown(Key.RETURN).perform();
       await driver
@@ -152,19 +169,15 @@ export const postAutoLogin = async (req, res) => {
       await loginBtn.click();
       await new Promise((r) => setTimeout(r, 500));
       const idInput = await driver.findElement(By.css(id));
-      await xsel.set(setId);
-      clipboardy.write(setId);
       await idInput.click();
-      await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
+      await new Promise((r) => setTimeout(r, 500));
+      await autoTyping(setId);
       await new Promise((r) => setTimeout(r, 500));
       const pwInput = await driver.findElement(By.css(pw));
-      if (os.type() == "Linux") {
-        await xsel.set(setPw);
-      } else {
-        clipboardy.write(setPw);
-      }
+      await new Promise((r) => setTimeout(r, 500));
       await pwInput.click();
-      await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
+      await new Promise((r) => setTimeout(r, 500));
+      await autoTyping(setPw);
       await new Promise((r) => setTimeout(r, 500));
       await driver.actions().keyUp(Key.COMMAND).keyDown(Key.RETURN).perform();
       await driver.actions().keyUp(Key.RETURN).keyDown(Key.RETURN).perform();
@@ -186,18 +199,13 @@ export const postAutoLogin = async (req, res) => {
       await new Promise((r) => setTimeout(r, 500));
       const inputId = await driver.findElement(By.css(id));
       await inputId.click();
-      await await xsel.set(setId);
-      clipboardy.write(setId);
-      await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
+      await new Promise((r) => setTimeout(r, 500));
+      await await autoTyping(setId);
       await new Promise((r) => setTimeout(r, 500));
       const inputPw = await driver.findElement(By.css(pw));
       await inputPw.click();
-      if (os.type() == "Linux") {
-        await await xsel.set(setPw);
-      } else {
-        clipboardy.write(setPw);
-      }
-      await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
+      await new Promise((r) => setTimeout(r, 500));
+      await autoTyping(setPw);
       await new Promise((r) => setTimeout(r, 500));
       await driver.actions().keyUp(Key.COMMAND).keyDown(Key.RETURN).perform();
       await new Promise((r) => setTimeout(r, 3000));
@@ -221,18 +229,13 @@ export const postAutoLogin = async (req, res) => {
       await new Promise((r) => setTimeout(r, 500));
       const inputId = await driver.findElement(By.css(id));
       await inputId.click();
-      await await xsel.set(setId);
-      clipboardy.write(setId);
-      await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
+      await new Promise((r) => setTimeout(r, 500));
+      await await autoTyping(setId);
       await new Promise((r) => setTimeout(r, 500));
       const inputPw = await driver.findElement(By.css(pw));
       await inputPw.click();
-      if (os.type() == "Linux") {
-        await await xsel.set(setPw);
-      } else {
-        clipboardy.write(setPw);
-      }
-      await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
+      await new Promise((r) => setTimeout(r, 500));
+      await autoTyping(setPw);
       await new Promise((r) => setTimeout(r, 500));
       await driver.actions().keyUp(Key.COMMAND).keyDown(Key.RETURN).perform();
       await new Promise((r) => setTimeout(r, 3000));
@@ -269,19 +272,14 @@ export const postAutoLogin = async (req, res) => {
       await menuBtn.click();
       const idInput = await driver.findElement(By.css(id));
       await new Promise((r) => setTimeout(r, 500));
-      await xsel.set(setId);
-      clipboardy.write(setId);
       await idInput.click();
-      await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
+      await new Promise((r) => setTimeout(r, 500));
+      await autoTyping(setId);
       const pwInput = await driver.findElement(By.css(pw));
       await new Promise((r) => setTimeout(r, 500));
-      if (os.type() == "Linux") {
-        await xsel.set(setPw);
-      } else {
-        clipboardy.write(setPw);
-      }
       await pwInput.click();
-      await driver.actions().keyDown(Key.COMMAND).sendKeys("v").perform();
+      await new Promise((r) => setTimeout(r, 500));
+      await autoTyping(setPw);
       await new Promise((r) => setTimeout(r, 500));
       await driver.actions().keyUp(Key.COMMAND).keyDown(Key.RETURN).perform();
       await driver
@@ -537,10 +535,12 @@ export const postAutoLogin = async (req, res) => {
   };
   await run();
   res.redirect("/");
-  if (os.type() == "Windows") {
-    await shell.exec("taskkill /f /im chromedriver.exe");
-  } else if (os.type() == "Darwin") {
-    await shell.exec("killall chromedriver");
+  if (os.type() == "Darwin") {
+    shell.exec("killall chromedriver");
+  } else if (os.type() == "windows") {
+    shell.exec("taskkill /f /im chromedriver.exe");
+  } else if (os.type() == "linux") {
+    shell.exec("killall -9 chromedriver");
   }
 };
 
