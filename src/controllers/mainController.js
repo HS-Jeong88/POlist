@@ -22,21 +22,6 @@ import os from "os";
 //   proc.stdin.end();
 // }
 
-function setClipboard(text) {
-  var type = "text/plain";
-  var blob = new Blob([text], { type });
-  var data = [new ClipboardItem({ [type]: blob })];
-
-  navigator.clipboard.write(data).then(
-    function () {
-      /* success */
-    },
-    function () {
-      /* failure */
-    }
-  );
-}
-
 export let chromeDriverCounter = 0;
 
 export const home = async (req, res) => {
@@ -88,21 +73,32 @@ export const postAutoLogin = async (req, res) => {
   const run = async () => {
     chromeDriverCounter = 1;
     let typingArray = [];
+
     let service = new chrome.ServiceBuilder(process.env.CHROME_DRIVER_PATH).build();
     chrome.setDefaultService(service);
-    let driver = await new webdriver.Builder().forBrowser("chrome").build();
+
+    let options = new chrome.Options();
+    options.addArguments("--disable-gpu");
+    options.addArguments("--no-sandbox");
+
+    let driver = await new webdriver.Builder()
+      .forBrowser("chrome")
+      .setChromeOptions(options)
+      .build();
+
     await driver.manage().setTimeouts({
       implicit: 10000,
       pageLoad: 45000,
       script: 45000,
     });
+
     await driver.manage().window().maximize();
     async function autoTyping(text) {
       typingArray.push(text);
       for (let i = 0; i < typingArray[0].length; i++) {
-        await new Promise((r) => setTimeout(r, 100));
+        await new Promise((r) => setTimeout(r, 50));
         await driver.actions().keyDown(typingArray[0][i]).perform();
-        await new Promise((r) => setTimeout(r, 100));
+        await new Promise((r) => setTimeout(r, 50));
         await driver.actions().keyUp(typingArray[0][i]).perform();
       }
       typingArray = [];
