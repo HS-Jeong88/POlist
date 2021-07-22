@@ -539,7 +539,7 @@ export const postAutoLogin = async (req, res) => {
   } else if (os.type() == "Windows") {
     shell.exec("taskkill /f /im chromedriver.exe");
   } else if (os.type() == "Linux") {
-    shell.exec("kill -9 chromedriver");
+    shell.exec("killall chromedriver");
   }
 };
 
