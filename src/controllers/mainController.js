@@ -80,7 +80,7 @@ export const postAutoLogin = async (req, res) => {
     let options = new chrome.Options();
     options.addArguments("--no-sandbox");
     options.addArguments("--disable-gpu");
-    options.setChromeBinaryPath(process.env.CHROME_BINARY_PATH);
+    // options.setChromeBinaryPath(process.env.CHROME_BINARY_PATH);
 
     let driver = await new webdriver.Builder()
       .forBrowser("chrome")
