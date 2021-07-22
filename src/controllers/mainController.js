@@ -78,6 +78,7 @@ export const postAutoLogin = async (req, res) => {
     chrome.setDefaultService(service);
 
     let options = new chrome.Options();
+    options.setChromeBinaryPath(process.env.CHROME_BINARY_PATH);
     options.addArguments("--disable-gpu");
     options.addArguments("--no-sandbox");
 
