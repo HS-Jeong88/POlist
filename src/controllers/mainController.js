@@ -75,16 +75,16 @@ export const postAutoLogin = async (req, res) => {
     let typingArray = [];
 
     let service = new chrome.ServiceBuilder(process.env.CHROME_DRIVER_PATH);
-    // let options = new chrome.Options();
-    // options.addArguments("--no-sandbox");
-    // options.addArguments("--disable-gpu");
+    let options = new chrome.Options();
+    options.addArguments("--no-sandbox");
+    options.addArguments("--disable-gpu");
     // options.setChromeBinaryPath(process.env.CHROME_BINARY_PATH);
 
     let driver = await new webdriver.Builder()
       .forBrowser("chrome")
       .setChromeService(service)
+      .setChromeOptions(options)
       .build();
-    // .setChromeOptions(options)
 
     await driver.manage().setTimeouts({
       implicit: 10000,
