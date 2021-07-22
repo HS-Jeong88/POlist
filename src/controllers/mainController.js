@@ -291,6 +291,7 @@ export const postAutoLogin = async (req, res) => {
     console.log(req.body);
     let urlArray = [];
     urlArray.push(req.body.getUrl);
+    console.log(getUrl);
     await driver.get(getUrl);
     // for (let i = 0; i < urlArray.length; i++) {
     //   // const getUrl = urlArray[i];
