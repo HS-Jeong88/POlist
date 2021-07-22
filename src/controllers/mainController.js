@@ -83,21 +83,20 @@ export const getAutoLogin = async (req, res) => {
 };
 export const postAutoLogin = async (req, res) => {
   console.log(os.type());
-  let service = new chrome.ServiceBuilder(process.env.CHROME_DRIVER_PATH).build();
-  chrome.setDefaultService(service);
-
-  let driver = await new webdriver.Builder().forBrowser("chrome").build();
-  await driver.manage().setTimeouts({
-    implicit: 10000,
-    pageLoad: 45000,
-    script: 45000,
-  });
-  await driver.manage().window().maximize();
   const { getUrl } = req.body;
   const { setId, setPw } = User;
   const run = async () => {
     chromeDriverCounter = 1;
     let typingArray = [];
+    let service = new chrome.ServiceBuilder(process.env.CHROME_DRIVER_PATH).build();
+    chrome.setDefaultService(service);
+    let driver = await new webdriver.Builder().forBrowser("chrome").build();
+    await driver.manage().setTimeouts({
+      implicit: 10000,
+      pageLoad: 45000,
+      script: 45000,
+    });
+    await driver.manage().window().maximize();
     async function autoTyping(text) {
       typingArray.push(text);
       for (let i = 0; i < typingArray[0].length; i++) {
