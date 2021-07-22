@@ -75,16 +75,15 @@ export const postAutoLogin = async (req, res) => {
     let typingArray = [];
 
     let service = new chrome.ServiceBuilder(process.env.CHROME_DRIVER_PATH).build();
-    chrome.setDefaultService(service);
-
-    let options = new chrome.Options();
-    options.addArguments("--no-sandbox");
-    options.addArguments("--disable-gpu");
+    // let options = new chrome.Options();
+    // options.addArguments("--no-sandbox");
+    // options.addArguments("--disable-gpu");
     // options.setChromeBinaryPath(process.env.CHROME_BINARY_PATH);
 
     let driver = await new webdriver.Builder()
       .forBrowser("chrome")
-      .setChromeOptions(options)
+      .setChromeService(service)
+      // .setChromeOptions(options)
       .build();
 
     await driver.manage().setTimeouts({
@@ -94,6 +93,7 @@ export const postAutoLogin = async (req, res) => {
     });
 
     await driver.manage().window().maximize();
+
     async function autoTyping(text) {
       typingArray.push(text);
       for (let i = 0; i < typingArray[0].length; i++) {
@@ -104,8 +104,10 @@ export const postAutoLogin = async (req, res) => {
       }
       typingArray = [];
     }
+
     let setId = "csdefrag";
     let setPw = "captain1121!";
+    
     const autoLogin = async (lb, setId, setPw, id, pw) => {
       await new Promise((r) => setTimeout(r, 1000));
       const loginBtn = await driver.findElement(By.css(lb));
@@ -289,15 +291,16 @@ export const postAutoLogin = async (req, res) => {
     console.log(req.body);
     let urlArray = [];
     urlArray.push(req.body.getUrl);
-    for (let i = 0; i < urlArray.length; i++) {
-      // const getUrl = urlArray[i];
-      if (i === 0) {
-        await driver.get(getUrl);
-      } else {
-        await driver.executeScript(`window.open('${getUrl}')`);
-        const newTab = await driver.getAllWindowHandles();
-        await driver.switchTo().window(newTab[i]);
-      }
+    await driver.get(getUrl);
+    // for (let i = 0; i < urlArray.length; i++) {
+    //   // const getUrl = urlArray[i];
+    //   if (i === 0) {
+    //     await driver.get(getUrl);
+    //   } else {
+    //     await driver.executeScript(`window.open('${getUrl}')`);
+    //     const newTab = await driver.getAllWindowHandles();
+    //     await driver.switchTo().window(newTab[i]);
+    //   }
       if (getUrl === "https://www.naver.com/") {
         await autoLogin(`#account > a`, "defrag_", "jogakmoum01", `#id`, `#pw`);
       } else if (getUrl === "https://cometoplay.kr/") {
