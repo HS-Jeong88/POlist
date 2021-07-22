@@ -536,9 +536,9 @@ export const postAutoLogin = async (req, res) => {
   res.redirect("/");
   if (os.type() == "Darwin") {
     shell.exec("killall chromedriver");
-  } else if (os.type() == "windows") {
+  } else if (os.type() == "Windows") {
     shell.exec("taskkill /f /im chromedriver.exe");
-  } else if (os.type() == "linux") {
+  } else if (os.type() == "Linux") {
     shell.exec("killall -9 chromedriver");
   }
 };
