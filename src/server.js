@@ -24,7 +24,10 @@ app.use(
     // cookie: {
     //   maxAge: NUMBER,
     // },
-    store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
+    store: MongoStore.create({
+      mongoUrl: process.env.DB_URL,
+      collection: "sessions",
+    }),
   })
 );
 app.use(flash());
