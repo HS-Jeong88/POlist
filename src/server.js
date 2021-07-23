@@ -26,7 +26,6 @@ app.use(
     // },
     store: MongoStore.create({
       mongoUrl: process.env.DB_URL,
-      collection: "sessions",
     }),
   })
 );
