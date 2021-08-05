@@ -1,20 +1,172 @@
-form:not(.modal__form):not(.siteForm) {
-  max-width: 520px;
+form:not(.modal__form, .siteForm, .edit-profile__form) {
+  max-width: 580px;
   margin: 0 auto;
   padding: 30px;
   background-color: rgba($color: #fcf8ec, $alpha: 1);
+}
+.main_container {
+  display: grid;
+  grid-template-columns: 170px 700px 100px;
+  grid-auto-rows: minmax(200px auto);
+  grid-gap: 5px;
+  .main_left {
+    grid-column: 1 / 2;
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    align-items: flex-end;
+    justify-content: space-between;
+    ul {
+      li {
+        width: 120px;
+        border: solid 1px #c79f97;
+        color: #c79f97;
+        text-align: center;
+        font-weight: bold;
+        font-size: 20px;
+        padding: 7px 12px;
+        margin: 0 15px 7px 0;
+      }
+    }
+    img {
+      position: relative;
+      right: -5px;
+      width: 150px;
+    }
+  }
+  .main_center {
+    overflow: hidden scroll;
+    grid-column: 2 / 3;
+    grid-row: 1;
+    align-items: flex-end;
+    min-height: 455px;
+    height: 80vh;
+    border: solid 1px #c79f97;
+    justify-content: center;
+    div {
+      color: #c79f97;
+      font-weight: bold;
+    }
+    input[type="checkbox"] {
+      display: inline-block;
+      background: #5d5d5d;
+      border: #c79f97 solid 1px;
+      cursor: pointer;
+      &:checked {
+        background-color: #a77f77;
+      }
+    }
+    .fieldAlign {
+      margin: 5px;
+      display: grid;
+      grid-template-columns: 95px 200px 120px 120px 60px 60px;
+      grid-template-rows: 1fr;
+      grid-gap: 5px;
+      align-items: center;
+      div:nth-child(1) {
+        grid-column: 1 / 2;
+        grid-row: 1;
+      }
+      div:nth-child(2) {
+        padding-left: 5px;
+        grid-column: 2 / 3;
+        grid-row: 1;
+        justify-self: center;
+      }
+      div:nth-child(3) {
+        padding-left: 5px;
+        grid-column: 3 / 4;
+        grid-row: 1;
+        justify-self: center;
+      }
+      div:nth-child(4) {
+        padding-left: 5px;
+        grid-column: 4 / 5;
+        grid-row: 1;
+        justify-self: center;
+      }
+    }
+    .siteForm {
+      .form_container {
+        margin: 5px;
+        display: grid;
+        grid-template-columns: 90px 200px 120px 120px 60px 60px;
+        gap: 5px;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        div:nth-child(-n + 4) {
+          display: block;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        div:nth-child(5) {
+          grid-column: 2 / 4;
+          grid-row: 2;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          justify-self: left;
+        }
+        :nth-child(6) {
+          grid-column: 2 / 4;
+          grid-row: 2;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          justify-self: center;
+        }
+        div:nth-child(n + 7) {
+          display: block;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          align-self: center;
+          justify-self: center;
+        }
+      }
+      .hidden {
+        display: none;
+      }
+    }
+    .addBtn {
+      all: unset;
+      color: #c79f97;
+      font-size: 30px;
+      margin: 5px 50%;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+  .main_right {
+    grid-column: 3 / 4;
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    justify-content: space-between;
+    .dummy {
+      ul {
+        li {
+          height: 208px;
+          border: #fcf8ec solid;
+        }
+      }
+    }
+    img {
+      position: relative;
+      right: 25px;
+      width: 150px;
+      z-index: 0;
+    }
+  }
 }
 .joinForm {
   input[type="text"],
   input[type="email"],
   input[type="password"] {
-    all: unset;
     margin: 0.2em;
     padding: 10px 20px;
     border-radius: 2px;
     border: 2px solid rgba(199, 159, 151, 1);
     color: #5d5d5d;
-    background-color: transparent;
     font-size: 16px;
     width: 90%;
   }
@@ -73,47 +225,32 @@ form:not(.modal__form):not(.siteForm) {
             pointer-events: none;
             border-width: 8px 5px 0 5px;
             border-style: solid;
-            border-color: #999 transparent transparent tramsparent;
+            border-color: #999;
           }
         }
+      }
+      .submitBtn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 5px;
+        padding: 5px;
       }
       .right {
         width: 15%;
       }
+      .loginBtn {
+        width: 100px;
+      }
       input[type="button"] {
         background-color: #c79f97;
         color: #fcf8ec;
+        width: 70px;
         cursor: pointer;
-        height: 41px;
+        height: 30px;
         margin: 0.2em;
-        padding: 10px 20px;
+        padding: 7px 7px;
       }
-      input[type="submit"] {
-        border-radius: 5px;
-        padding: 12px 20px;
-        color: rgba(199, 159, 151, 1);
-        text-align: center;
-        cursor: pointer;
-        display: block;
-        font-weight: bold;
-      }
-    }
-  }
-}
-.fieldAlign {
-  display: grid;
-  grid-template-columns: 280px 240px;
-  justify-items: center;
-}
-.siteForm {
-  .contents {
-    display: grid;
-    grid-template-columns: 100px 200px 200px 100px 100px;
-    grid-template-rows: 1fr;
-    gap: 10px 20px;
-    align-items: center;
-    span {
-      text-align: center;
     }
   }
 }

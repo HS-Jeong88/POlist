@@ -6,6 +6,9 @@ const siteSchema = new mongoose.Schema({
   attendance: { type: Boolean },
   siteName: { type: String },
   siteUrl: { type: String },
+  siteDetail: { type: String },
+  inputId: { type: String },
+  inputPw: { type: String },
   selectLoginId: { type: String },
   owner: { type: String },
 });

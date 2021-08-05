@@ -90,17 +90,18 @@
 로그인버튼
 회원가입
 
-user:{
-구분:{
-개인:"",
-사업자:{간이, 일반, 법인, 기타},
-}
-소속그룹:{
-a:{
-권한:(관리자,사용자,미승인)
-},
-b,
-c,
-d,
-}
-}
+<!-- / > /login > /sitelist > /editProfile
+                       > /invite
+                       > /authority
+                       > /groupAdministrate
+                       > /notice
+
+  > /join > /individual > /validateId
+                        > /searchAddress
+
+          > /group      > /validateId
+                        > /searchAddress
+
+  > /findId
+
+  > /findPw -->

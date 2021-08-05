@@ -2,17 +2,17 @@ import multer from "multer";
 
 export const localsMiddleware = (req, res, next) => {
   res.locals.loggedIn = Boolean(req.session.loggedIn);
-  res.locals.siteName = "Auto Login";
+  res.locals.siteName = "로그인 비서";
   res.locals.loggedInUser = req.session.user || {};
   next();
 };
 
 export const protectMiddleware = (req, res, next) => {
   if (req.session.loggedIn) {
-    next();
+    return next();
   } else {
-    req.flash("error", "Lof in first.");
-    return res.redirect("/login");
+    req.flash("error", "로그인을 먼저 해주세요");
+    return res.redirect("/");
   }
 };
 

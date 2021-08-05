@@ -22,7 +22,9 @@ block content
           div.right
         div.contents
           div.left 
-            b 비밀번호 확인
+            b 비밀번호 
+              br 
+              |확인
           div.center
             input(name="password2", type="password", required)
           div.right
@@ -43,7 +45,7 @@ block content
             b 전화번호
           div.center
             .phoneNum1
-              input.phoneNum(name="phoneNum1", type="text", value="010", readonly)
+              input.phoneNum(name="phoneNum1", type="text", value="010")
             .phoneNum2 &nbsp;-&nbsp;
               input.phoneNum(name="phoneNum2", type="text", required)
             .phoneNum3 &nbsp;-&nbsp;
@@ -53,14 +55,14 @@ block content
           div.left 
             b 우편번호
           div.center
-            input#postcode.postcode(placeholder="우편번호 찾기를 눌러주세요", name="zipCode", type="text" ,readonly,required)
-            input(type="button", value="우편번호 찾기", onclick="execDaumPostcode()")
+            input#postcode.postcode(placeholder="우편번호 검색을 눌러주세요", name="zipCode", type="text" ,readonly,required)
+            input(type="button", value="검색", onclick="execDaumPostcode()")
           div.right
         div.contents
           div.left 
             b 주소
           div.center
-            input#address(placeholder="우편번호 찾기를 눌러주세요", name="address", type="text",readonly,required)
+            input#address(name="address", type="text", readonly, required)
           div.right
         div.contents
           div.left 
@@ -119,8 +121,7 @@ block content
           div.right
         div.contents
           div.left 
-          div.center
-            .submitBtn
+          div.center.submitBtn
               a(onclick="submit()")
                 img.loginBtn(src="img/join.png")
           div.right
@@ -131,7 +132,7 @@ block content
               b 이미 계정이 있습니까? 
               br
               br
-              a(href="/login") 
+              a(href="/") 
                 b 로그인 하러가기 &rarr; 
           div.right
     script(src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js") 

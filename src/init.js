@@ -16,7 +16,7 @@ import app from "./server";
 //   childProcess.spawn = mySpawn;
 // })();
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 12768 || 80;
 
 const handleListening = () => console.log(`Server listening on port http://localhost:${PORT}`);
 //const newTab = await driver.getAllWindowHandles();

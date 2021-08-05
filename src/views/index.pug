@@ -1,42 +1,40 @@
 doctype html
 html(lang="ko")
   head 
-    title #{pageTitle} | #{siteName}
+    title #{siteName}
+    link(rel="shortcut icon", href="img/favicon.ico", type="image/x-icon")
     link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css")
     link(rel="stylesheet", href="/static/css/styles.css")
   body
     main 
       div.loginWrap
         div.loginHeader 
-          img.logo(src="img/logo.png", alt="리뷰단짝")
-        if errorMessage   
-          span.errormessage=errorMessage
-        div.loginContainer
-          div.loginForm 
-            form#loginForm(method="post") 
-              div.loginContents 
-                div.loginField
-                  a.join(href="/join")  회원가입
-                div.loginField 
-                  b ID 
-                  input(type="text", name="userId", required)
-                div.loginField 
-                  b PW  
-                  input(type="password", name="password", required)
-                div.loginField
-                  div.loginBtn  
-                    a.login(onclick="submit()") 
-                      img.loginBtn(src="img/login.png")
-                  div.loginField2
-                    //- span 로그인저장
-                      input#saveLogin(type="checkbox", name="saveLogin") 
-                    //- a(href="#",value="아이디찾기") 아이디찾기
-                    //- a(href="#",value="비밀번호찾기") 비밀번호찾기
-          div.loginImg
-            img.character(src="img/character.png", alt="리뷰단짝")
+          img.logo(src="img/logop.png", alt="리뷰단짝")
+        form#loginForm(method="post") 
+          if errorMessage   
+            span.errormessage=errorMessage
+          div.joinArea
+            a.join(href="/join") 회원가입
+          div.inputArea
+            div.inputId
+              b ID 
+              input(type="text", name="userId", required)
+            div.inputPw
+              b PW  
+              input(type="password", name="password", required)
+          div.etcArea
+            .checkbox
+              input#saveLogin(type="checkbox", name="saveLogin") 
+              |로그인저장
+            a(href="#",value="아이디찾기") 아이디찾기
+            a(href="#",value="비밀번호찾기") 비밀번호찾기
+          div.loginBtnArea
+            a.login(onclick="submit()")
+              img.loginBtn(src="img/login.png")
+        div.loginImg
+          img.character(src="img/character.png", alt="리뷰단짝")
     script.
       function submit(){
         const loginForm = document.querySelector("#loginForm")
         loginForm.submit()
       }
-  include partials/footer
