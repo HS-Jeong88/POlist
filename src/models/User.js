@@ -16,7 +16,6 @@ const userSchema = new mongoose.Schema({
   gender: { type: String },
   allowingEmail: { type: Boolean },
   allowingSMS: { type: Boolean },
-  company: { type: String },
   date_join: { type: Date, default: Date.now },
   date_lastLogin: { type: Date },
 });

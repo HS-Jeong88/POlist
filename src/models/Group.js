@@ -1,19 +1,18 @@
 import mongoose from "mongoose";
 
 const groupSchema = new mongoose.Schema({
-  groupName: { type: String },
-  groupMember: [{ memberId: String, authority: String }],
-  siteList: [
+  groupName: { type: String, unique: true },
+  members: [{ userid: String, admin: Boolean }],
+  date_join: Date,
+  date_leave: Date,
+  alert: [{ who: String, what: String, when: Date }],
+  record: [{ who: String, what: String, when: Date }],
+  team: [
     {
-      siteUrl: { type: String },
-      siteName: { type: String },
-      setId: { type: String },
-      setPw: { type: String },
-      checkbox: { type: Boolean },
-      grade: { type: String },
-      attendance: { type: Boolean },
-      selectLoginId: { type: String },
-      owner: { type: String },
+      teamName: String,
+      memberId: String,
+      authority: String,
+      managerMemo: String,
     },
   ],
 });

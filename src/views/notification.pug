@@ -1,0 +1,12 @@
+extends base
+
+block content
+  div.main_container
+    div.main_left
+      include partials/sidebar
+    .main_center
+      include mixins/addNotification
+      div.siteListField
+        div.notifications
+          each item in reverseDocs
+            +addValue(item)

@@ -1,22 +1,3 @@
-//- div.contents 
-  //- input(type="button", value="전체로그인", onclick=`loginAll()`)
-mixin addField(str)
-  if str !== "owner"
-      if str == "siteUrl"
-        div 
-          label
-            input.selectSiteAll(type="checkbox", name="selectSite", onclick="selectAll(this)") 
-            |전체선택
-        div.contents="사이트 Url"
-      else if str == "siteName"
-        div.contents="사이트 이름"
-      else if str == "siteDetail" 
-        div.contents="사이트 설명"
-      else if str == "inputId" 
-        div.contents(hidden)="아이디"
-      else if str == "inputPw" 
-        div.contents(hidden)="비밀번호"
-
 mixin addValue(obj)
   if obj.owner === _id
     div
@@ -24,104 +5,33 @@ mixin addValue(obj)
         input(type="hidden", name="getUrl", value=`${obj.siteUrl}`)
         div.form_container
           div.contents
-            input.selectSite(type="checkbox", name="selectSite")
-          div.contents
+            input.selectSite(type="checkbox", name="selectSite", onclick="selectCheckbox(this)")
+          div.contents(style="overflow: hidden; white-space: pre; word-break: nowrap;")
             span.value
-              a(onclick="toggle()") #{obj.siteUrl}
-          div.contents
-            span.value=obj.siteName
-          div.contents
-            span.value=obj.siteDetail
+              img(src="/img/prontbar.png", alt="")
+              a(onclick="toggle()") #{obj.siteName}
+          div.contents(style="overflow: hidden; white-space: pre; word-break: nowrap;")
+            span.value
+              img(src="/img/prontbar.png", alt="")
+              span=obj.siteDetail
+          div.contents(style="overflow: hidden; white-space: pre; word-break: nowrap;")
+            span.value
+              img(src="/img/prontbar.png", alt="")
+              span=obj.memo
           div.contents.hidden
-            span(hidden).value=obj.inputId
-            input.hiddenTarget(type="button", value="아이디복사", onclick="copytext()")
+            span.value(style="display:none;")=obj.inputId
+            a(onclick="copytext()")
+              img(src="/img/copyid.png", alt="")
+            input.hiddenTarget(type="hidden", value="아이디복사")
           div.contents.hidden
-            span(hidden).value=obj.inputPw
-            input.hiddenTarget(type="button", value="비번복사", onclick="copytext()")
-          input.siteEditBtn(type="button", value="수정", onclick="siteEdit()")
-          input.deleteRowBtn(type="button", value="삭제", onclick="deleteSite()",name=`${obj.siteUrl}`)
-          script.
-            function copytext(){
-              const target = event.target.previousSibling.innerText 
-              if(!target){
-                alert(event.target.value == "아이디복사" ? "아이디가 설정되지 않았습니다." : "비밀번호가 설정되지 않았습니다.")
-              }else{
-                const textArea = document.createElement('textarea')
-                document.body.appendChild(textArea)
-                textArea.value = target;
-                textArea.select()
-                document.execCommand('copy')
-                document.body.removeChild(textArea);
-              }
-            }
-            function getIndex(ele){
-              let i = 0
-              while((ele = ele.previousSibling) != null){
-                i++
-              }
-              return i
-            }
-            function toggle(){
-              const div =  document.querySelector("div.main_center > div > div:nth-child(2)")
-              const targetDiv = div.querySelectorAll(".hiddenTarget")
-              const target1 = event.target.parentNode.parentNode.parentNode.childNodes[4]
-              const target2 = event.target.parentNode.parentNode.parentNode.childNodes[5]
-              const target1_index = getIndex(target1.parentNode.parentNode.parentNode)
-              const target2_index = getIndex(target2.parentNode.parentNode.parentNode)
-              let i = 0;
-              targetDiv.forEach((item)=>{
-                const item_index = getIndex(item.parentNode.parentNode.parentNode)
-                console.log(item_index)
-                if(item_index == target1_index || target2_index){
-                  if(target1.classList.value || target2.classList.value == "contents hidden"){
-                    target1.classList.remove("hidden")
-                    target2.classList.remove("hidden")
-                  }else{
-                    target1.classList.add("hidden")
-                    target2.classList.add("hidden")
-                  }
-                }else{
-                  item.parentNode.classList.add("hidden")
-                }
-              })
-              i++
-            }
-            function siteEdit(){
-              const siteEditBtn = event.target
-              const targetForm = siteEditBtn.parentNode.parentNode
-              const contents = targetForm.querySelectorAll(".form_container > .contents")
-              siteUrl.value = contents[1].innerText
-              siteName.value = contents[2].innerText
-              siteDetail.value = contents[3].innerText
-              inputId.value = contents[4].innerText
-              inputPw.value = contents[5].innerText
-              targetForm.action=""
-              openEditModal()
-            }
-            function deleteSite(){
-              const siteForm = document.querySelector(".siteForm")
-              const deleteBtn = event.target
-              const targetForm = deleteBtn.parentNode.parentNode
-              console.log(targetForm)
-              targetForm.action="/deleteRow"
-              siteForm.action="/deleteRow"
-              targetForm.submit()
-            }
-            function loginAll(){
-              const checkboxArray = []
-              const countCheckbox = document.querySelectorAll(".selectSite")
-              for(let i = 0; i < countCheckbox.length; i++)
-                checkboxArray.push(countCheckbox[i].parentNode.parentNode.childNodes[1].innerText)
-            }
-            function selectAll(selectAll){
-              const checkbox = document.getElementsByName("selectSite")
-              let i = 1
-              let urlArray = [];
-              checkbox.forEach((check) => {
-                check.checked = selectAll.checked
-                if(i !== 1)
-                  urlArray.push(check.parentNode.nextSibling.firstChild.innerText)
-                i++
-              })
-              console.log(urlArray)
-            }
+            span.value(style="display:none;")=obj.inputPw
+            a(onclick="copytext()")
+              img(src="/img/copypw.png", alt="")
+            input.hiddenTarget(type="hidden", value="비번복사")
+          a.siteEditBtn(onclick="siteEdit()", name=`${obj._id}`)
+            img(src="/img/penpink.png", alt="수정")
+          a.deleteRowBtn(onclick="deleteSite()", name=`${obj._id}`)
+            img(src="/img/tmfprl.png", alt="삭제")
+          div.contents
+            input(type="hidden", name="rowId", value=`${obj._id}`)
+          //- input.deleteRowBtn(type="button", value="삭제", onclick="deleteSite()",name=`${obj.siteUrl}`)

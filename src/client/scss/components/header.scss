@@ -1,28 +1,88 @@
 header {
-  padding: 10px 40px;
+  padding: 10px 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  min-width: 1200px;
   .header__logo {
-    color: #000;
+    color: #5d5d5d;
     font-size: 38px;
-  }
-  ul {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    li {
-      margin-left: 30px;
-      font-size: 14px;
-      font-weight: 600;
-      text-transform: uppercase;
+    img {
+      width: 153px;
     }
-    i {
-      font-size: 16px;
+  }
+  .bannerInHeader {
+    display: flex;
+    flex-direction: row;
+    column-gap: 20px;
+    height: 125px;
+    margin-right: 110px;
+    justify-content: center;
+    align-items: center;
+    .banner_header {
+      width: 600px;
+      height: 125px;
+      img {
+        width: fit-content;
+      }
+    }
+  }
+  nav {
+    ul {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      color: #5d5d5d;
+      li {
+        margin-left: 10px;
+        font-size: 18px;
+        font-weight: 600;
+        text-transform: uppercase;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        a {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: #c79f97;
+          img {
+            width: 65px;
+          }
+        }
+        .cs {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          img {
+            width: 65px;
+          }
+        }
+        .login_header {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          img {
+            position: relative;
+            left: 5px;
+            width: 47px;
+          }
+        }
+        .join_header {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          img {
+            width: 62px;
+          }
+        }
+      }
+      i {
+        font-size: 16px;
+      }
     }
   }
   .header__btn {
-    color: $bg;
     padding: 5px 10px;
     border-radius: 5px;
   }

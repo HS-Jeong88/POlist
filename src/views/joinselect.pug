@@ -1,0 +1,67 @@
+include mixins/message
+doctype html
+html(lang="ko")
+  head 
+    title #{siteName}
+    meta(name="naver-site-verification" content="beb63f6c2c4f0315d96e5bdd6e6741681f21a5ea")
+    meta(name="description", content="내가 원하는 사람에게 로그인정보를 손쉽게 공유할 수 있습니다.")
+    meta(property="og:type", content="website")
+    meta(property="og:title", content="로그인 비서")
+    meta(property="og:description", content="내가 원하는 사람에게 로그인정보를 손쉽게 공유할 수 있습니다.")
+    meta(property="og:url", content="http://idpw.kr")
+    meta(name="Robots", content="INDEX, FOLLOW")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    link(rel="shortcut icon", href="/img/favicon.ico", type="image/x-icon")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css")
+    link(rel="stylesheet", href="/static/css/styles.css")
+    script(type="text/javascript", src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js")
+    script(data-ad-client="ca-pub-2245738259481185", async, src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
+    script(type="text/javascript" src="//wcs.naver.net/wcslog.js")
+    script.
+      if(!wcs_add) var wcs_add = {};
+      wcs_add["wa"] = "eecd36f07163e0";
+      if(window.wcs) {
+        wcs_do();
+      }
+  body
+    if messages.error
+      +message("error",messages.error)
+    if messages.info
+      +message("info", messages.info)
+    if messages.success
+      +message("success", messages.success)
+    .joinSelectWrap 
+      .joinSelectContainer 
+        .logo 
+          a(href="/") 
+            img(src="/img/loginsecretary_beta_logo.png", alt="logo")
+        .text 
+          div
+            |회원가입
+          div
+            |가입형태를 선택해 주세요.
+          img(src="", alt="")
+        .contentWrap
+          .content.privateContent
+            .image 
+              img(src="/img/stella2.png", alt="")
+            .private 
+              input(type="button", value="개인", onclick="goPrivateJoin()")
+              img(src="", alt="")
+            .text 사용자 개인회원
+              img(src="", alt="")
+          .content.publicContent
+            .image 
+              img(src="/img/edbd.png", alt="")
+            .public 
+              input(type="button", value="단체", onclick="commingsoon()")
+              img(src="", alt="")
+            .text 사업자, 단체
+              img(src="", alt="")
+  script.
+    function goPrivateJoin(){
+      window.location.href = "/join"
+    }
+    function commingsoon(){
+      alert("준비중입니다. 곧 뵙겠습니다. :D")
+    }

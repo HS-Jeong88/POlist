@@ -3,11 +3,12 @@ import {
   logout,
   startGithubLogin,
   finishGithubLogin,
-  see,
   getEdit,
   postEdit,
   getChangePassword,
   postChangePassword,
+  getResign,
+  postResign,
 } from "../controllers/userController";
 import { protectMiddleware, publicOnlyMiddleware, avatarUpload } from "../middlewares";
 
@@ -26,6 +27,7 @@ userRouter
   .post(postChangePassword);
 userRouter.get(`/github/start`, publicOnlyMiddleware, startGithubLogin);
 userRouter.get(`/github/finish`, publicOnlyMiddleware, finishGithubLogin);
-userRouter.get(`/:id`, see);
+userRouter.route("/resign").get(getResign).post(postResign);
+// userRouter.get(`/:id`, see);
 
 export default userRouter;

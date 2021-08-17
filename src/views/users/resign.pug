@@ -1,0 +1,9 @@
+form.resignForm(method="POST")
+  div 정말 탈퇴 하시겠습니까?
+  input.formSubmit(type="button", value="YES", onclick="formSubmit()")
+  input(type="button", value="NO", onclick="location.href='/users/edit'")
+script.
+  function formSubmit(){
+    const targetForm = document.querySelector(".resignForm")
+    targetForm.submit()
+  }

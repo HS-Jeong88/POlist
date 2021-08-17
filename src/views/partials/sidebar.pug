@@ -1,12 +1,46 @@
 div.sidebar
   ul 
-    li 
-      a(href="#") 프로필 수정
-    li  
-      a(href="#") 초대하기
-    li  
-      a(href="#") 로그인 권한
-    li  
-      a(href="#") 그룹 관리
-    li  
-      a(href="#") 알림/기록
+    li.sidebar_profile 
+      a.profile(href="/users/edit")
+      img(src="/img/profile.png", alt="프로필수정")
+    li.invite  
+      a(href="/invite")
+      img(src="/img/chodeacomingsoon.png", alt="초대하기")
+      //- img(src="/img/profile.png", alt="")
+    li.authority
+      a(href="/sharecomingsoon")
+      //- img(src="/img/comingsoon.png", alt="로그인권한")
+      img(src="/img/logincom.png", alt="")
+    li.management
+      a(href="/groupprofile")
+      //- img(src="/img/comingsoon.png", alt="그룹관리")
+      img(src="/img/gruopcom.png", alt="")
+  div
+    .notification
+      a(href="/notification")
+        img(src="/img/side_record.png", alt="기록")
+      if newCheck == true
+        span N
+  script.
+    const invite = document.querySelector(".invite")
+    const authority = document.querySelector(".authority")
+    const management = document.querySelector(".management")
+    const alertAndrecord = document.querySelector(".alertAndrecord")
+
+    //- function mousehover(){
+    //-   //- const target = 
+    //-   //- console.log(event)
+    //-   return;
+    //- }
+    //- function mouseleave(){
+    //-   //- console.log(event)
+    //-   return;
+    //- }
+    //- invite.addEventListener("mouseenter", mousehover())
+    //- invite.addEventListener("mouseleave", mouseleave())
+    //- authority.addEventListener("mouseleave", mouseleave())
+    //- authority.addEventListener("mouseenter", mousehover())
+    //- management.addEventListener("mouseenter", mousehover())
+    //- management.addEventListener("mouseleave", mouseleave())
+    //- alertAndrecord.addEventListener("mouseleave", mouseleave())
+    //- alertAndrecord.addEventListener("mouseenter", mousehover())

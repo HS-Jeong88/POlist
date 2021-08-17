@@ -1,159 +1,221 @@
 extends base
 
 block content
-  .editForm
+  div.main_container
+    div.main_left
+      include partials/sidebar
     form.edit-profile__form(method="POST", enctype="multipart/form-data")
-      div.contents
-        .left 
-          li 아이디
-        .middle
-          input(name="userId", type="text", required, value=loggedInUser.userId)
-        .right 
-      .contents
-        .left 
-          li 이름
-        .middle
-          input(name="name", type="text", required, value=loggedInUser.name)
-        .right 
-      .contents
-        .left 
-          li 닉네임
-        .middle
-          input(name="nickname", type="text", value=loggedInUser.nickname)
-        .right 
-      .contents
-        .left 
-          li 전화번호
-        .middle
-          .phoneNum1
-            input.phoneNum(name="phoneNum1", type="text", value=phoneNumber1)
-          .phoneNum2 &nbsp;-&nbsp;
-            input.phoneNum(name="phoneNum2", type="text", value=phoneNumber2)
-          .phoneNum3 &nbsp;-&nbsp;
-            input.phoneNum(name="phoneNum3", type="text", value=phoneNumber3)
-        .right 
-      .contents
-        .left 
-          li 우편번호
-        .middle
-          input#postcode.postcode(placeholder="우편번호 검색을 눌러주세요", name="zipCode", type="text", readonly, required, value=loggedInUser.zipCode)
-          input(type="button", value="검색", onclick="execDaumPostcode()")
-        .right 
-      .contents
-        .left 
-          li 주소
-        .middle
-          input#address(name="address", type="text", readonly, required, value=loggedInUser.address)
-        .right 
-      .contents
-        .left 
-          li 상세주소
-        .middle
-          input#detailAddress(name="detailAddress", type="text", value=loggedInUser.detailAddress)
-        .right 
-      .contents
-        .left 
-          li 이메일
-        .middle
-          input(name="email", type="email", required, value=loggedInUser.email)
-        .right 
-      .contents
-        .left 
-          li 생년월일
-        .middle
-          input(name="birth", type="text", required, value=loggedInUser.birth)
-        .right 
-      .contents
-        .left 
-          li 성별
-        .middle
-          label(for="radio") 
-            span 남성
-              if loggedInUser.gender=="male"
-                input#male(name="gender", type="radio", value="male",  checked="true") 
-              else
-                input#male(name="gender", type="radio", value="male") 
-            span / 
-            span 여성
-              if loggedInUser.gender=="female"
-                input#female(name="gender", type="radio", value="female",  checked="true") 
-              else
-                input#female(name="gender", type="radio", value="female") 
-        .right 
-      .contents
-        .left 
-          li 광고수신동의
-        .middle
-          label(for="checkbox") 
-            span Email
-              if loggedInUser.allowingEmail==true
-                input(name="allowingEmail", type="checkbox", value="Email", checked="true")
-              else
-                input(name="allowingEmail", type="checkbox", value="Email")
-            span / 
-            span SMS
-              if loggedInUser.allowingSMS==true
-                input(name="allowingSMS", type="checkbox", value="SMS", checked="true")
-              else
-                input(name="allowingSMS", type="checkbox", value="SMS")
-        .right 
-      .contents
-        .left 
-        .middle
-          input(type="submit", value="수정")
-        .right 
-        //- label(for="avatar") 프로필 사진
-        //- input(type="file", id="avatar", name="avatar", accept="image/*")
-      .contents
-        .left 
-        .middle
-          if !loggedInUser.socialOnly
-            div.edit-profile__password
-              a(href="change-password") 비밀번호 변경 &rarr; 
-        .right 
-        script.
-          function execDaumPostcode() {
-            new daum.Postcode({
-              oncomplete: function (data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var addr = ""; // 주소 변수
-                var extraAddr = ""; // 참고항목 변수
-                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                if (data.userSelectedType === "R") {
-                  // 사용자가 도로명 주소를 선택했을 경우
-                  addr = data.roadAddress;
-                } else {
-                  // 사용자가 지번 주소를 선택했을 경우(J)
-                  addr = data.jibunAddress;
-                }
-                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-                if (data.userSelectedType === "R") {
-                  // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                  // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                  if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
-                    extraAddr += data.bname;
-                  }
-                  // 건물명이 있고, 공동주택일 경우 추가한다.
-                  if (data.buildingName !== "" && data.apartment === "Y") {
-                    extraAddr += extraAddr !== "" ? ", " + data.buildingName : data.buildingName;
-                  }
-                  // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                  //- if(extraAddr !== ''){
-                  //-     extraAddr = ' (' + extraAddr + ')';
-                  //- }
-                  //- // 조합된 참고항목을 해당 필드에 넣는다.
-                  //- document.getElementById("extraAddress").value = extraAddr;
-                }
-                //- else {
-                //-     document.getElementById("extraAddress").value = '';
-                //- }
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById("postcode").value = data.zonecode;
-                document.getElementById("address").value = addr;
-                // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("detailAddress").focus();
-              },
-            }).open();
-          }
+      div.main_center.profileCenter
+        .editProfile
+          div.photo 
+            if loggedInUser.avatarUrl == undefined
+                span 200px ✕ 200px
+                label(for="avatar") 
+                  img(src="/img/Profile1.png")
+                input(type="file", id="avatar", name="avatar", accept="image/*")
+                span '저장'버튼을 누르면 적용됩니다.
+            else 
+                span 200px ✕ 200px
+                label(for="avatar") 
+                  img(src="/"+loggedInUser.avatarUrl)
+                input#avatar(type="file", name="avatar", accept="image/*")
+                span '저장'버튼을 누르면 적용됩니다.
+          div.stella2
+            img(src="/img/stella2.png", alt="")
+            img.privateProfile(src="/img/profile_a personal profile.png", alt="개인 프로필")
+          .editForm
+            .contents
+              .left 
+                img(src="/img/profile/profile_id.png", alt="아이디")
+              .middle
+                input(name="userId", type="text", required, value=loggedInUser.userId)
+              .right 
+            .contents
+              .left 
+                img(src="/img/profile/profile_name.png", alt="이름")
+              .middle
+                input(name="name", type="text", required, value=loggedInUser.name)
+              .right 
+            .contents
+              .left 
+                img(src="/img/profile/profile_pix_nname.png", alt="닉네임")
+              .middle
+                input(name="nickname", type="text", value=loggedInUser.nickname)
+              .right 
+            .contents
+              .left 
+                img(src="/img/profile/profile_ponen.png", alt="전화번호")
+              .middle
+                .phoneNum1
+                  input.phoneNum(name="phoneNum1", type="text", value=phoneNumber1)
+                .phoneNum2 &nbsp;-&nbsp;
+                  input.phoneNum(name="phoneNum2", type="text", value=phoneNumber2)
+                .phoneNum3 &nbsp;-&nbsp;
+                  input.phoneNum(name="phoneNum3", type="text", value=phoneNumber3)
+              .right 
+            .contents
+              .left 
+                img(src="/img/profile/profile_zipcode.png", alt="우편번호")
+              .middle
+                input#postcode.postcode(placeholder="우편번호 검색을 눌러주세요", name="zipCode", type="text", readonly, required, value=loggedInUser.zipCode)
+                input.searchBtn(type="button", value="검색", onclick="execDaumPostcode()")
+              .right 
+            .contents
+              .left 
+                img(src="/img/profile/profile_address.png", alt="주소")
+              .middle
+                input#address(name="address", type="text", readonly, required, value=loggedInUser.address)
+              .right 
+            .contents
+              .left 
+                img(src="/img/profile/profile_detailedaddress.png", alt="상세주소")
+              .middle
+                input#detailAddress(name="detailAddress", type="text", value=loggedInUser.detailAddress)
+              .right 
+            .contents
+              .left 
+                img(src="/img/profile/profile_email.png", alt="이메일")
+              .middle
+                .email1
+                  input(name="email1", type="text", required, value=email1)
+                .email2 
+                  |&nbsp;
+                  img(src="/img/profile/profile_@.png", alt="@")
+                  |&nbsp;
+                  input#email2(name="email2", type="text", required, value=email2)
+                .email3 
+                  select#emailSelect(name="emailSelect", onchange="changeSelectedEmail(this)") 
+                    option(value="직접입력") 직접입력
+                    option(value="gmail.com") gmail.com
+                    option(value="naver.com") naver.com
+                    option(value="nate.com") nate.com
+                    option(value="daum.net") daum.net
+                    option(value="hanmail.net") hanmail.net
+                      
+                //- input(name="email", type="email", required, value=loggedInUser.email)
+              .right 
+            .contents
+              .left 
+                
+                img(src="/img/profile/profile_birthdate.png", alt="생년월일")
+              .middle
+                input(name="birth", type="text", required, value=loggedInUser.birth)
+              .right 
+            .contents
+              .left 
+                img(src="/img/profile/profile_sex.png", alt="성별")
+              .middle
+                label(for="radio") 
+                  span 
+                    img(src="/img/profile/profile_man.png", alt="남성")
+                    if loggedInUser.gender=="male"
+                      input#male(name="gender", type="radio", value="male",  checked="true") 
+                    else
+                      input#male(name="gender", type="radio", value="male") 
+                  span / 
+                  span 
+                    img(src="/img/profile/profile_woman.png", alt="여성")
+                    if loggedInUser.gender=="female"
+                      input#female(name="gender", type="radio", value="female",  checked="true") 
+                    else
+                      input#female(name="gender", type="radio", value="female") 
+              .right 
+            .contents
+              .left 
+                img(src="/img/profile/profile_agree.png", alt="광고수신동의")
+              .middle
+                label(for="checkbox") 
+                  span
+                    img(src="/img/profile/profile_email_e.png", alt="email")
+                    if loggedInUser.allowingEmail==true
+                      input(name="allowingEmail", type="checkbox", value="Email", checked="true")
+                    else
+                      input(name="allowingEmail", type="checkbox", value="Email")
+                  span / 
+                  span SMS
+                    if loggedInUser.allowingSMS==true
+                      input(name="allowingSMS", type="checkbox", value="SMS", checked="true")
+                    else
+                      input(name="allowingSMS", type="checkbox", value="SMS")
+              .right 
+            .contents
+              .left 
+              .middle
+                a.editFormSubmitBtn(onclick="editFormSubmit()") 
+                  img(src="/img/profile/profile_save.png", alt="저 장")
+              .right 
+            .contents
+              .left 
+              .middle
+                if !loggedInUser.socialOnly
+                  div.edit-profile__password
+                    a(href="change-password") 비밀번호 변경 &rarr; 
+              .right 
+            .contents
+              .left 
+              .middle
+                if !loggedInUser.socialOnly
+                  div.resign
+                    a(href="resign") 회원탈퇴 &rarr; 
+              .right 
+    script(src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js") 
+    script.
+      const selectedEmail = document.querySelector("#emailSelect")
+      const inputEmail = document.querySelector("#email2")
+
+      function changeSelectedEmail(){
+        if(selectedEmail.options[selectedEmail.selectedIndex].text !== "직접입력"){
+          inputEmail.value = selectedEmail.options[selectedEmail.selectedIndex].text
+        }else{
+          inputEmail.value = "";
+        }
+      }
+      function editFormSubmit(){
+        const target = document.querySelector(".edit-profile__form")
+        target.submit()
+      }
+      function execDaumPostcode() {
+        new daum.Postcode({
+          oncomplete: function (data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var addr = ""; // 주소 변수
+            var extraAddr = ""; // 참고항목 변수
+            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+            if (data.userSelectedType === "R") {
+              // 사용자가 도로명 주소를 선택했을 경우
+              addr = data.roadAddress;
+            } else {
+              // 사용자가 지번 주소를 선택했을 경우(J)
+              addr = data.jibunAddress;
+            }
+            // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+            if (data.userSelectedType === "R") {
+              // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+              // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+              if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
+                extraAddr += data.bname;
+              }
+              // 건물명이 있고, 공동주택일 경우 추가한다.
+              if (data.buildingName !== "" && data.apartment === "Y") {
+                extraAddr += extraAddr !== "" ? ", " + data.buildingName : data.buildingName;
+              }
+              // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+              //- if(extraAddr !== ''){
+              //-     extraAddr = ' (' + extraAddr + ')';
+              //- }
+              //- // 조합된 참고항목을 해당 필드에 넣는다.
+              //- document.getElementById("extraAddress").value = extraAddr;
+            }
+            //- else {
+            //-     document.getElementById("extraAddress").value = '';
+            //- }
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById("postcode").value = data.zonecode;
+            document.getElementById("address").value = addr;
+            // 커서를 상세주소 필드로 이동한다.
+            document.getElementById("detailAddress").focus();
+          },
+        }).open();
+      }

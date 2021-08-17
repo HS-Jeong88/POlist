@@ -9,76 +9,342 @@ block content
       include mixins/addField
       div.siteListField
         div.fieldAlign
-          each item in keyList 
-            +addField(item)  
+          div
+            label
+              input.selectSiteAll(type="checkbox", name="selectSiteAll", onclick="selectAll(this)") 
+          div.contents="사이트명"
+          div.contents="사이트설명"
+          div.contents="메모"
         div
           each item in values
             +addValue(item)
       input.addBtn#open(type="button", value="+")
-
+      form.alert__form(method="post")
+        .alertModal.hidden
+          .alert__overlay 
+          .alert__content
+            .alert__text
+            .btnArea
+              a(onclick="closeAlert()")
+                |확인                
       form.modal__form(method="post") 
         div.modal.hidden
           div.modal__overlay
           div.modal__content
             div.modal__content__H
-              h1 
+              span.textImage
               div
-                button.modal_close(type="button") ✕
+                a(onclick="closeModal()") 
+                  img(src="/img/popup/popup_03.png", alt="")
             div.modal__content__layout
               div.modal__content__L
-                input.siteUrl(placeholder="사이트 Url", type="text", name="siteUrl", autofocus, required)
-                input.siteName(placeholder="사이트 이름", type="text", name="siteName",required)
-                input.siteDetail(placeholder="사이트 설명", type="text", name="siteDetail", value="")
+                div
+                  img(src="/img/popup/popup_11.png", alt="")
+                  input.siteUrl(type="text", name="siteUrl", autofocus, required)
+                div
+                  img(src="/img/popup/popup_18.png", alt="")
+                  input.siteName(type="text", name="siteName", required)
+                div
+                  img(src="/img/popup/popup_23.png", alt="")
+                  input.siteDetail(type="text", name="siteDetail")
+                div
+                  img(src="/img/popup/popup_25.png", alt="")
+                  input.memo(type="text", name="memo")
               div.modal__content__R
-                input.inputId(placeholder="ID", type="text", name="inputId", value="")
-                input.inputPw(placeholder="PW", type="text", name="inputPw", value="")
+                div
+                  img(src="/img/popup/popup_15.png", alt="")
+                  input.inputId(type="text", name="inputId", value="")
+                div
+                  img(src="/img/popup/popup_19.png", alt="")
+                  input.inputPw(type="text", name="inputPw", value="")
                 input.modalSwitch(type="hidden", name="modalSwitch")
+                input.rowId(type="hidden", name="rowId")
             div.modal__content__F
               h2 
-                |사이트 상세는 편집한 개인에게만 보입니다.
-              input(type="submit", value="저장")
+                p 사이트 설명은 공유한 모두에게 보여지며,
+                
+                p 메모는 개인에게만 보여집니다.
+              input(type="submit")
+              img(src="/img/popup/popup_26.png", alt="")
     div.main_right
-      div.dummy
-        ul 
-          li 
+      div.filebox
+        a.loginBtnAll(href="#", onclick="accessAll()") 
+          img(src="/img/buttonopen.png", alt="접속")
+        //- a.deleteBtnAll(href="#", onclick="deleteAll()")
+          img(src="/img/buttonremove.png", alt="삭제")
+        form.fileboxForm(method="post") 
+          label(for="xlsxUploadBtn") 
+            img(src="/img/buttonupload.png", alt="")
+          input#xlsxUploadBtn(type="file")
       img(src="/img/stella1.png")
-    block banner 
-      include partials/banner
-        script.
-          const h1 = document.querySelector("h1")
-          const openButton = document.getElementById("open")
-          const modal = document.querySelector(".modal")
-          const overlay = modal.querySelector(".modal__overlay")
-          const modal_close = document.querySelector(".modal_close")
-          const siteUrl = document.querySelector(".siteUrl")
-          const siteName = document.querySelector(".siteName")
-          const siteDetail = document.querySelector(".siteDetail")
-          const inputId = document.querySelector(".inputId")
-          const inputPw = document.querySelector(".inputPw")
-          const modalSwitch = document.querySelector(".modalSwitch")
+    include partials/banner
+    script.
+      const textImage = document.querySelector(".textImage")
+      const openButton = document.getElementById("open")
+      const modal = document.querySelector(".modal")
+      const modal__form = document.querySelector(".modal__form")
+      const overlay = modal.querySelector(".modal__overlay")
+      
+      const siteUrl = document.querySelector(".siteUrl")
+      const siteName = document.querySelector(".siteName")
+      const siteDetail = document.querySelector(".siteDetail")
+      const inputId = document.querySelector(".inputId")
+      const inputPw = document.querySelector(".inputPw")
+      const memo = document.querySelector(".memo")
+      const modalSwitch = document.querySelector(".modalSwitch")
+      const rowId = document.querySelector(".rowId")
+      
+      const xlsxUploadBtn = document.getElementById("xlsxUploadBtn")
+      const fileboxForm = document.querySelector(".fileboxForm")
 
-          function inputClear(){
-            siteUrl.value=""
-            siteName.value=""
-            siteDetail.value=""
-            inputId.value=""
-            inputPw.value=""
+      const alertModal = document.querySelector(".alertModal");
+      const alert__overlay = alertModal.querySelector(".alert__overlay")
+      const alert__content = alertModal.querySelector(".alert__content")
+      const alert__text = alert__content.querySelector(".alert__text")
+      const btnArea = alert__content.querySelector(".btnArea")
+
+      function copytext(){
+        const targetText = event.target.parentNode.previousSibling.innerText 
+        const target = event.target.parentNode.nextSibling 
+        if(!targetText){
+          target.value == "아이디복사" ? alertDisplay("아이디가 설정되지 않았습니다.") : alertDisplay("비밀번호가 설정되지 않았습니다.")
+        }else{
+          target.value == "아이디복사" ?  alertDisplay("copyId") : alertDisplay("copyPw")
+          const textArea = document.createElement('textarea')
+          document.body.appendChild(textArea)
+          textArea.value = targetText;
+          textArea.select()
+          document.execCommand('copy')
+          document.body.removeChild(textArea);
+        }
+      }
+      function getIndex(ele){
+        let i = 0
+        while((ele = ele.previousSibling) != null){
+          i++
+        }
+        return i
+      }
+      function toggle(){
+        const div =  document.querySelector("div.main_center > div > div:nth-child(2)")
+        const targetDiv = div.querySelectorAll(".hiddenTarget")
+        const targetName = event.target.parentNode.parentNode.parentNode.childNodes[1]
+        const targetDetail = event.target.parentNode.parentNode.parentNode.childNodes[2]
+        const targetMemo = event.target.parentNode.parentNode.parentNode.childNodes[3]
+        const target1 = event.target.parentNode.parentNode.parentNode.childNodes[4]
+        const target2 = event.target.parentNode.parentNode.parentNode.childNodes[5]
+        const target_index = getIndex(target1.parentNode.parentNode.parentNode)
+        const targetForm = div.querySelectorAll(".form_container")
+        for(let i = 0; i < targetForm.length; i++){
+          if(i == target_index){
+            target1.classList.toggle("hidden")
+            target2.classList.toggle("hidden")
+            if(targetMemo.style.overflow == "hidden"){
+              targetMemo.style.overflow = "visible"
+              targetMemo.style.whiteSpace = "normal"
+              targetMemo.style.wordBreak = "break-all"
+              targetDetail.style.overflow = "visible"
+              targetDetail.style.whiteSpace = "normal"
+              targetDetail.style.wordBreak = "break-all"
+              targetName.style.overflow = "visible"
+              targetName.style.whiteSpace = "normal"
+              targetName.style.wordBreak = "break-all"
+            }else{
+              targetMemo.style.overflow = "hidden"
+              targetMemo.style.whiteSpace = "pre"
+              targetMemo.style.wordBreak = "nowrap"
+              targetDetail.style.overflow = "hidden"
+              targetDetail.style.whiteSpace = "pre"
+              targetDetail.style.wordBreak = "nowrap"
+              targetName.style.overflow = "hidden"
+              targetName.style.whiteSpace = "pre"
+              targetName.style.wordBreak = "nowrap"
+            }
+
+          //- overflow: visible;
+          //- white-space: normal;
+          //- word-break: break-all;
+          //- word-wrap: normal;
+          //- text-overflow: ellipsis;
+          }else{
+            targetForm[i].childNodes[4].classList.add("hidden")
+            targetForm[i].childNodes[5].classList.add("hidden")
+
+          //- overflow: hidden;
+          //- white-space: pre;
+          //- word-break: nowrap;
+          //- word-wrap: normal;
+          //- text-overflow: ellipsis;
           }
-          const openModal = () => {
-            modalSwitch.value = 0
-            inputClear()
-            h1.innerText = "추가할 사이트 정보를 입력해주세요."
-            modal.classList.remove("hidden")
+        }
+      }
+      function siteEdit(){
+        const siteEditBtn = event.target
+        const targetForm = siteEditBtn.parentNode.parentNode
+        const contents = targetForm.querySelectorAll(".form_container > .contents")
+        const targetUrl = event.target.parentNode.parentNode.parentNode.name
+        siteUrl.value = targetUrl
+        siteName.value = contents[1].innerText
+        siteDetail.value = contents[2].innerText
+        memo.value = contents[3].innerText
+        inputId.value = contents[4].childNodes[0].innerText
+        inputPw.value = contents[5].childNodes[0].innerText
+        rowId.value = contents[6].childNodes[0].value
+        targetForm.action=""
+        openEditModal()
+      }
+      function deleteSite(){
+        const deleteBtn = event.target
+        const targetForm = deleteBtn.parentNode.parentNode.parentNode
+        targetForm.action="/deleteRow"
+        targetForm.submit()
+      }
+      function selectCheckbox(item){
+        const checkedItem = item.parentNode.parentNode
+        const targetUrl = checkedItem.parentNode.name
+        const rowId = checkedItem.lastChild.childNodes[0].value
+        console.log(checkedItem)
+        let valueArr = []
+        valueArr.push(targetUrl)
+        for(let i = 1; i < 6; i++){
+          valueArr.push(checkedItem.childNodes[i].innerText)
+        }
+        if(item.checked){
+          checkedItemArray.push(valueArr)
+        }else{
+          let i = 0
+          checkedItemArray.forEach((element)=>{
+            if(element[0] == valueArr[0]){
+              checkedItemArray.splice(i, 1)
+            }
+            i++
+          })
+        }
+      }
+      function selectAll(selectAll){
+        const checkbox = document.getElementsByName("selectSite")
+        let i = 0
+        if(selectAll.checked){
+          checkedItemArray = []
+          checkbox.forEach((check) => {
+            const targetUrl = check.parentNode.parentNode.parentNode.name
+            check.checked = selectAll.checked
+            let forArr = []
+            forArr.push(targetUrl)
+            for(let j = 1;j < 6; j++){
+              let content = check.parentNode.parentNode.childNodes[j].innerText
+              forArr.push(content)
+            }
+            checkedItemArray.push(forArr)
+            i++
+          })
+        }else{
+          checkedItemArray = [];
+          checkbox.forEach((check) => {
+            check.checked = selectAll.checked
+          })
+        }
+      }
+
+      let checkedItemArray = []
+      function formSubmit(){
+        modal__form.submit()
+      }
+      function accessAll(){
+        checkedItemArray.forEach((item)=>{
+          window.open(item[0])
+        })
+      }
+      function deleteAll(){
+        let urlArray = []
+        checkedItemArray.forEach((item)=>{
+          const targetForm = document.getElementsByName(item[0])[0]
+          const targetUrl = item[0]
+          urlArray.push(targetUrl)
+          targetForm.action="/deleteRowAll"
+        })
+          console.log(checkedItemArray)
+
+        //- fetch(url, {
+        //-   method: 'POST', 
+        //-   body: JSON.stringify(data),
+        //-   headers:{
+        //-     'Content-Type': 'application/json'
+        //-   }
+        //- }).then(res => res.json())
+        //- .then(response => console.log('Success:', JSON.stringify(response)))
+        //- .catch(error => console.error('Error:', error));        
+      }
+      function openAlert(){
+        alertModal.classList.remove("hidden")
+      }
+      function closeAlert(){
+        alertModal.classList.add("hidden")
+      }
+      function alertDisplay(txt) {
+        if(txt==="copyId"){
+          alert__text.innerHTML = "<img class='copyId' src='/img/alert/popup_idcopy.png' />"
+          openAlert()
+        }else if(txt==="copyPw"){
+          alert__text.innerHTML = "<img class='copyPw' src='/img/alert/popup_pwcopy.png' />"
+          openAlert()
+        }
+        else{
+          alert__text.innerText = txt;
+          openAlert()
+        }
+      }
+      function inputClear(){
+        siteUrl.value=""
+        siteName.value=""
+        siteDetail.value=""
+        memo.value=""
+        inputId.value=""
+        inputPw.value=""
+      }
+      const openModal = () => {
+        modalSwitch.value = 0
+        textImage.innerHTML = "<img class='addmodal' src='/img/popup/popup_text.png' />"
+        modal.classList.remove("hidden")
+        inputClear()
+      }
+      const openEditModal = () => {
+        modalSwitch.value = 1
+        textImage.innerHTML = "<img class='editmodal' src='/img/popup/popup_editpng.png' />"
+        modal.classList.remove("hidden")
+      }
+      const closeModal = () => {
+        inputClear()
+        modal.classList.add("hidden")
+      }
+      xlsxUploadBtn.addEventListener("change", (e)=>{
+        const files = e.target.files;
+        let i,f
+        for(i = 0; i != files.length; i++){
+          f = files[i]
+          const reader = new FileReader();
+          reader.onload = function(e){
+            const data = e.target.result;
+            const workbook = XLSX.read(data, {type: "binary"})
+            workbook.SheetNames.forEach((item,index,array)=>{
+              EXCEL_JSON = XLSX.utils.sheet_to_json(workbook.Sheets[item])
+            })
+            fetch("/excel",{
+              method:"POST",
+              headers:{
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(EXCEL_JSON)
+            })
           }
-          const openEditModal = () => {
-            modalSwitch.value = 1
-            h1.innerText = "수정할 사이트 정보를 입력해주세요."
-            modal.classList.remove("hidden")
-          }
-          const closeModal = () => {
-            inputClear()
-            modal.classList.add("hidden")
-          }
-          overlay.addEventListener("click", closeModal)
-          openButton.addEventListener("click", openModal)
-          modal_close.addEventListener("click", closeModal)
+          reader.readAsBinaryString(f)
+        }
+        //- fileboxForm.action="/excel"
+        //- fileboxForm.submit()
+      })
+      overlay.addEventListener("click", closeModal)
+      openButton.addEventListener("click", openModal)
+      //- modal_close.addEventListener("click", closeModal)
+      alert__overlay.addEventListener("click", closeAlert)
+      //- btnArea.addEventListener("click", closeAlertModal)

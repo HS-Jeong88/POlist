@@ -1,0 +1,16 @@
+mixin addValue(obj)
+  div 
+    if obj.check == false 
+      span.newMark New!
+    div #{obj.userId}님이
+    div #{obj.siteName}(#{obj.siteUrl})을(를)
+    //- if(obj.siteDetail)
+    //-   div #{obj.siteDetail}
+    if obj.CRUD === "C"
+      |생성하셨습니다.
+    if obj.CRUD == "U"
+      |수정하셨습니다.
+    if obj.CRUD == "D"
+      |삭제하셨습니다
+    div #{obj.date}
+    br

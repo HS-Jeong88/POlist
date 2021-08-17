@@ -1,13 +1,13 @@
 .loginWrap {
   display: grid;
-  grid-template-columns: 200px 500px 200px;
+  grid-template-columns: 1fr;
   grid-template-rows: repeat(5, 0.2fr);
   grid-gap: 10px;
   width: 90%;
   justify-content: center;
   align-items: center;
   .loginHeader {
-    grid-column: 2 / 3;
+    grid-column: 1;
     grid-row: 2 / 3;
     display: grid;
     justify-content: center;
@@ -17,37 +17,62 @@
     }
   }
   #loginForm {
-    grid-column: 2 / 3;
+    grid-column: 1;
     grid-row: 3 / 4;
     padding: 0;
     margin: 0;
     display: grid;
-    grid-template-columns: 50px 300px 150px;
-    grid-template-rows: repeat(3, 0.2fr);
+    grid-template-columns: 50px 300px 120px;
+    grid-template-rows: repeat(4, 0.2fr);
     grid-gap: 10px;
     width: fit-content;
     justify-content: center;
     align-items: center;
     .errormessage {
       display: grid;
-      grid-column: 2/3;
+      grid-column: 2 / 3;
       grid-row: 1;
       justify-content: right;
       color: #f75f78;
     }
-    .joinArea {
-      grid-column: 2 / 3;
-      grid-row: 1;
+    .saveLogin {
+      grid-column: 3 / 4;
+      grid-row: 2;
       display: grid;
       justify-content: right;
+      .checkbox {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        label {
+          display: flex;
+          gap: 0 5px;
+          align-items: center;
+          input {
+            justify-self: baseline;
+            width: 15px;
+            height: 15px;
+            display: inline-block;
+            background: transparent;
+            border: #c79f97 solid 2px;
+            cursor: pointer;
+            &:checked {
+              background-color: #a77f77;
+            }
+          }
+          img {
+            width: 110px;
+          }
+        }
+      }
       .join {
         color: #c79f97;
         font-weight: 900;
       }
     }
     .inputArea {
-      grid-column: 2;
-      grid-row: 2;
+      grid-column: 2 / 3;
+      grid-row: 3;
       display: grid;
       .inputId,
       .inputPw {
@@ -56,9 +81,6 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        b {
-          color: #c79f97;
-        }
         input {
           width: 225px;
           height: 25px;
@@ -66,39 +88,72 @@
           border: #c79f97 solid 1px;
         }
       }
+      .inputId {
+        img {
+          width: 40px;
+        }
+      }
+      .inputPw {
+        img {
+          width: 50px;
+        }
+      }
     }
     .etcArea {
-      grid-column: 2;
-      display: grid;
+      grid-column: 3 / 4;
+      grid-row: 4;
+      display: flex;
       color: #c79f97;
       font-weight: 900;
       justify-content: flex-end;
-      .checkbox {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
-        input#saveLogin {
-          width: 15px;
-          height: 15px;
-          border: 1px solid #c79f97;
+      gap: 0 10px;
+      .join {
+        img {
+          width: 90px;
+        }
+      }
+      .fid {
+        img {
+          width: 110px;
+        }
+      }
+      .fpw {
+        img {
+          width: 90px;
         }
       }
     }
     .loginBtnArea {
-      grid-column: 3 / 4;
-      grid-row: 2 / 3;
+      grid-column: 3;
+      grid-row: 3 / 4;
       display: grid;
-      .loginBtn {
-        width: 150px;
+      grid-template-columns: 20px;
+      grid-template-rows: 1px 50px 1px;
+      z-index: 1;
+      align-items: center;
+      width: 120px;
+      .login {
+        z-index: 0;
+        grid-column: 1 / 2;
+        grid-row: 2 / 3;
+        display: grid;
+        align-items: center;
+        .loginBtn {
+          z-index: 0;
+          width: 120px;
+        }
       }
     }
   }
   .loginImg {
-    grid-column: 2 / 3;
+    margin-top: 10px;
+    grid-column: 1;
     grid-row: 4 / 5;
     display: grid;
+    grid-template-columns: 120px 120px 120px 120px;
     justify-content: center;
     .character {
+      grid-column: 2 / 5;
       max-width: 270px;
     }
   }

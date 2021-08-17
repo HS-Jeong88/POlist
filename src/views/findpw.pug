@@ -1,0 +1,80 @@
+include mixins/message
+doctype html
+html(lang="ko")
+  head 
+    title #{siteName}
+    meta(name="naver-site-verification" content="beb63f6c2c4f0315d96e5bdd6e6741681f21a5ea")
+    meta(name="description", content="내가 원하는 사람에게 로그인정보를 손쉽게 공유할 수 있습니다.")
+    meta(property="og:type", content="website")
+    meta(property="og:title", content="로그인 비서")
+    meta(property="og:description", content="내가 원하는 사람에게 로그인정보를 손쉽게 공유할 수 있습니다.")
+    meta(property="og:url", content="http://idpw.kr")
+    meta(name="Robots", content="INDEX, FOLLOW")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    link(rel="shortcut icon", href="/img/favicon.ico", type="image/x-icon")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css")
+    link(rel="stylesheet", href="/static/css/styles.css")
+    script(type="text/javascript", src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js")
+    script(data-ad-client="ca-pub-2245738259481185", async, src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
+    script(type="text/javascript" src="//wcs.naver.net/wcslog.js")
+    script.
+      if(!wcs_add) var wcs_add = {};
+      wcs_add["wa"] = "eecd36f07163e0";
+      if(window.wcs) {
+        wcs_do();
+      }
+  body
+    if messages.error
+      +message("error",messages.error)
+    if messages.info
+      +message("info", messages.info)
+    if messages.success
+      +message("success", messages.success)
+    main 
+      div.alignDiv
+        div.fidWrap
+          div.fidHeader 
+            a(href="/") 
+              img.logo(src="img/loginsecretary_beta_logo.png", alt="로그인비서")
+          .fidText 
+            img(src="/img/search_idpw/pw/serch_pw_03.png", alt="fid")
+          form#findIdForm(method="post")
+            div.inputArea
+              div.id
+                img(src="/img/search_idpw/pw/serch_pw_07.png", alt="name")
+              .inputId
+                input(type="text", name="inputId", onkeypress="press(this.form)", required)
+              div.email_pw
+                img(src="/img/search_idpw/pw/serch_pw_09.png", alt="email")
+              div.inputEmail_pw
+                input(type="text", name="email", onkeypress="press(this.form)", required)
+              .authentic
+                img(src="/img/search_idpw/pw/serch_pw_19.png", alt="")
+              .authInput
+                input(type="text", name="auth", onkeypress="press(this.form)", required)
+              div.authBtnArea
+                  a(onclick="submit()")
+                    img.fpwBtn(src="/img/search_idpw/pw/serch_pw_17.png", alt="fpw")
+              .authBtnArea2
+                  a(onclick="submit()")
+                    img.authBtn(src="/img/search_idpw/pw/serch_pw_11.png", alt="auth")
+            div.etcArea
+              li.errorMessage
+              a.goToLogin(href="/login")
+                img(src="/img/search_idpw/id/group_x_18.png", alt="login")
+              a.goTojoin(href="/join",value="아이디찾기")
+                img(src="/img/search_idpw/id/group_x_20.png", alt="join")
+              a.fid(href="/findid",value="비밀번호찾기")
+                img(src="/img/search_idpw/pw/serch_pw_23.jpg", alt="fpw")
+    script.
+      const findIdForm = document.querySelector("#findIdForm")
+      function submit(){
+        //- findIdForm.submit()
+        alert("준비중입니다. 곧 뵙겠습니다. :D")
+
+      }
+      function press(f){
+        if(f.keyCode == 13){
+          //- findIdForm.submit()
+        }
+      }

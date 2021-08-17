@@ -1,14 +1,16 @@
-form:not(.modal__form, .siteForm, .edit-profile__form) {
+form:not(.modal__form, .alert__form, .siteForm, .edit-profile__form) {
   max-width: 580px;
   margin: 0 auto;
   padding: 30px;
   background-color: rgba($color: #fcf8ec, $alpha: 1);
 }
 .main_container {
+  grid-column: 2 / 3;
   display: grid;
-  grid-template-columns: 170px 700px 100px;
+  grid-template-columns: 170px 700px 110px;
   grid-auto-rows: minmax(200px auto);
   grid-gap: 5px;
+  justify-content: center;
   .main_left {
     grid-column: 1 / 2;
     display: flex;
@@ -16,22 +18,36 @@ form:not(.modal__form, .siteForm, .edit-profile__form) {
     height: 80vh;
     align-items: flex-end;
     justify-content: space-between;
-    ul {
-      li {
-        width: 120px;
-        border: solid 1px #c79f97;
-        color: #c79f97;
-        text-align: center;
-        font-weight: bold;
-        font-size: 20px;
-        padding: 7px 12px;
-        margin: 0 15px 7px 0;
-      }
-    }
     img {
       position: relative;
       right: -5px;
       width: 150px;
+    }
+  }
+  .sharecomingsoon {
+    position: relative;
+    margin-left: 20px;
+    img {
+      width: 750px;
+    }
+  }
+  .groupprofile {
+    position: relative;
+    margin-left: 20px;
+    img {
+      width: 750px;
+    }
+  }
+  .notifications {
+    span {
+      color: red;
+    }
+  }
+  .inviteComming {
+    position: relative;
+    margin-left: 20px;
+    img {
+      width: 750px;
     }
   }
   .main_center {
@@ -39,87 +55,147 @@ form:not(.modal__form, .siteForm, .edit-profile__form) {
     grid-column: 2 / 3;
     grid-row: 1;
     align-items: flex-end;
-    min-height: 455px;
+    min-height: 500px;
     height: 80vh;
-    border: solid 1px #c79f97;
+    min-width: 720px;
+    border: solid 2.5px #c79f97;
     justify-content: center;
+    padding: 10px 0 0 10px;
+    .forlogin {
+      margin: 120px 0 20px 0;
+      display: flex;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
     div {
       color: #c79f97;
       font-weight: bold;
     }
     input[type="checkbox"] {
+      justify-self: baseline;
+      width: 10px;
+      height: 10px;
       display: inline-block;
-      background: #5d5d5d;
-      border: #c79f97 solid 1px;
+      background: transparent;
+      border: #c79f97 solid 2px;
       cursor: pointer;
       &:checked {
         background-color: #a77f77;
       }
     }
     .fieldAlign {
-      margin: 5px;
       display: grid;
-      grid-template-columns: 95px 200px 120px 120px 60px 60px;
+      grid-template-columns: 20px 120px 230px 230px 35px 35px;
       grid-template-rows: 1fr;
       grid-gap: 5px;
       align-items: center;
       div:nth-child(1) {
+        height: 14px;
+        display: flex;
+        justify-self: center;
+        align-self: center;
         grid-column: 1 / 2;
         grid-row: 1;
       }
       div:nth-child(2) {
-        padding-left: 5px;
         grid-column: 2 / 3;
         grid-row: 1;
-        justify-self: center;
       }
       div:nth-child(3) {
-        padding-left: 5px;
         grid-column: 3 / 4;
         grid-row: 1;
-        justify-self: center;
       }
       div:nth-child(4) {
-        padding-left: 5px;
         grid-column: 4 / 5;
         grid-row: 1;
-        justify-self: center;
       }
     }
     .siteForm {
       .form_container {
-        margin: 5px;
         display: grid;
-        grid-template-columns: 90px 200px 120px 120px 60px 60px;
+        grid-template-columns: 20px 120px 230px 230px 35px 35px;
         gap: 5px;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        div:nth-child(-n + 4) {
-          display: block;
-          overflow: hidden;
+        opacity: 0.9;
+        span {
+          display: flex;
+          align-items: center;
+          max-height: 35px;
+          img {
+            height: 25px;
+          }
+        }
+        div {
+          word-wrap: normal;
           text-overflow: ellipsis;
+        }
+        div:nth-child(1) {
+          display: flex;
+          justify-self: center;
+          align-self: center;
+          position: relative;
+          top: 2.2px;
+        }
+        div:nth-child(2) {
+          display: flex;
+          color: #5d5d5d;
+        }
+        div:nth-child(3) {
+          color: #5d5d5d;
+          display: flex;
+          justify-self: left;
+          align-self: center;
+          max-width: 230px;
+        }
+        div:nth-child(4) {
+          display: flex;
+          justify-self: left;
+          align-self: center;
+          position: relative;
+          color: #5d5d5d;
+          max-width: 230px;
+          span {
+          }
         }
         div:nth-child(5) {
-          grid-column: 2 / 4;
+          grid-column: 2 / 3;
           grid-row: 2;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          justify-self: left;
+          color: #5d5d5d;
+          a {
+            img {
+              width: 90px;
+            }
+          }
         }
-        :nth-child(6) {
-          grid-column: 2 / 4;
+        div:nth-child(6) {
+          grid-column: 3 / 4;
           grid-row: 2;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          justify-self: center;
+          color: #5d5d5d;
+          a {
+            img {
+              width: 90px;
+            }
+          }
         }
         div:nth-child(n + 7) {
-          display: block;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          align-self: center;
-          justify-self: center;
+          color: #5d5d5d;
+        }
+        .siteEditBtn {
+          display: flex;
+          justify-content: center;
+          max-height: 19px;
+          width: 10px;
+          img {
+            width: 10px;
+            height: 19px;
+          }
+        }
+        .deleteRowBtn {
+          max-height: 35px;
+          img {
+            width: 15px;
+            height: 19px;
+          }
         }
       }
       .hidden {
@@ -127,12 +203,14 @@ form:not(.modal__form, .siteForm, .edit-profile__form) {
       }
     }
     .addBtn {
-      all: unset;
       color: #c79f97;
       font-size: 30px;
-      margin: 5px 50%;
+      margin: 5px 48%;
       &:hover {
         cursor: pointer;
+      }
+      &:active {
+        transform: scale(0.95);
       }
     }
   }
@@ -142,115 +220,56 @@ form:not(.modal__form, .siteForm, .edit-profile__form) {
     flex-direction: column;
     height: 80vh;
     justify-content: space-between;
-    .dummy {
-      ul {
-        li {
-          height: 208px;
-          border: #fcf8ec solid;
+    .filebox {
+      min-height: 215px;
+      .loginBtnAll {
+        img {
+          width: 80px;
+          left: 29px;
+          top: -0.157px;
+        }
+      }
+      .deleteBtnAll {
+        img {
+          width: 80px;
+          left: 29px;
+          top: -0.159px;
+        }
+      }
+      .fileboxForm {
+        margin: 0;
+        background-color: #c79f97;
+        padding: 0;
+        label {
+          width: 50px;
+          background-color: #c79f97;
+          cursor: pointer;
+          &:active {
+            transform: scale(0.98);
+          }
+          img {
+            display: none;
+            width: 80px;
+          }
+        }
+        input[type="file"] {
+          /* 파일 필드 숨기기 */
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          border: 0;
         }
       }
     }
     img {
       position: relative;
-      right: 25px;
+      right: -9px;
       width: 150px;
       z-index: 0;
-    }
-  }
-}
-.joinForm {
-  input[type="text"],
-  input[type="email"],
-  input[type="password"] {
-    margin: 0.2em;
-    padding: 10px 20px;
-    border-radius: 2px;
-    border: 2px solid rgba(199, 159, 151, 1);
-    color: #5d5d5d;
-    font-size: 16px;
-    width: 90%;
-  }
-  .top {
-    display: flex;
-    justify-content: center;
-    color: #c79f97;
-  }
-  .middle {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    .contents {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 15px;
-      color: #c79f97;
-      .left {
-        width: 20%;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-      }
-      .center {
-        display: flex;
-        flex-direction: row;
-        width: 60%;
-        .phoneNum1,
-        .phoneNum2,
-        .phoneNum3 {
-          display: flex;
-          flex-direction: row;
-          justify-content: center;
-          align-items: center;
-        }
-        .email1,
-        .email2,
-        .email3 {
-          display: flex;
-          flex-direction: row;
-          justify-content: center;
-          align-items: center;
-          select {
-            width: 85px;
-            padding: 0.8em 0.5em;
-            margin: 0.2em;
-            border: 1px solid #999;
-            font-family: inherit;
-            border-radius: 0px;
-            background-color: #c79f97;
-            color: #fcf8ec;
-          }
-          .select-arrow {
-            pointer-events: none;
-            border-width: 8px 5px 0 5px;
-            border-style: solid;
-            border-color: #999;
-          }
-        }
-      }
-      .submitBtn {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 5px;
-        padding: 5px;
-      }
-      .right {
-        width: 15%;
-      }
-      .loginBtn {
-        width: 100px;
-      }
-      input[type="button"] {
-        background-color: #c79f97;
-        color: #fcf8ec;
-        width: 70px;
-        cursor: pointer;
-        height: 30px;
-        margin: 0.2em;
-        padding: 7px 7px;
-      }
     }
   }
 }

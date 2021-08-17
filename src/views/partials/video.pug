@@ -1,0 +1,28 @@
+//- div.videoContainer
+//-   video.videoContents(src="/video/SampleVideo_1280x720_2mb.mp4") 
+div#videoContainer
+  video#thumb(src="/video/pv.mp4", controls) 
+  //- video(src="/" + video.fileUrl)
+  //- #extendedVideoContainer.hidden
+    div.video__overlay
+    div.video__content
+      video#extendedVideo(src="/video/SampleVideo_1280x720_2mb.mp4") 
+      div#videoControls.videoControls
+        div.videoControls__play
+          span#play.videoControls__playBtn
+            i.fas.fa-play
+          div.videoControls__time
+            span#currenTime 00:00
+            span  / 
+            span#totalTime 00:00
+        input(type="range",step="1", value="0", min="0")#timeline.videoControls__timeline
+        div.videoControls__volume
+          input(type="range",step="0.1", value=0.5, min="0", max="1")#volume
+          span#mute
+            i.fas.fa-volume-up
+        div
+          span#fullScreen
+            i.fas.fa-expand
+
+block scripts
+  //- script(src="/static/js/videoPlayer.js")

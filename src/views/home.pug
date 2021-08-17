@@ -1,3 +1,95 @@
 extends base
 
 block content
+  div.main_container
+    div.main_left
+      include partials/sidebar
+      img(src="/img/ed1.png")
+    div.main_center
+      div.siteListField
+        .forlogin
+          |로그인 후 이용이 가능한 서비스 입니다.
+      input.addBtn#open(type="button", value="+")
+
+      form.modal__form(method="post") 
+        div.modal.hidden
+          div.modal__overlay
+          div.modal__content
+            div.modal__content__H
+              h1 
+              div
+                button.modal_close(type="button") ✕
+            div.modal__content__layout
+              div.modal__content__L
+                div
+                  img(src="/img/popup/popup_11.png", alt="")
+                  input.siteUrl(type="text", name="siteUrl", autofocus, required)
+                div
+                  img(src="/img/popup/popup_18.png", alt="")
+                  input.siteName(type="text", name="siteName", required)
+                div
+                  img(src="/img/popup/popup_23.png", alt="")
+                  input.siteDetail(type="text", name="siteDetail")
+                div
+                  img(src="/img/popup/popup_25.png", alt="")
+                  input.memo(type="text", name="memo")
+              div.modal__content__R
+                div
+                  img(src="/img/popup/popup_15.png", alt="")
+                  input.inputId(type="text", name="inputId", value="")
+                div
+                  img(src="/img/popup/popup_19.png", alt="")
+                  input.inputPw(type="text", name="inputPw", value="")
+                input.modalSwitch(type="hidden", name="modalSwitch")
+            div.modal__content__F
+              h2 
+                p 사이트 설명은 공유한 모두에게 보여지며,
+                
+                p 메모는 개인에게만 보여집니다.
+              input(type="submit")
+              img(src="/img/popup/popup_26.png", alt="")
+    div.main_right
+      div.filebox
+        ul 
+          li 
+      img(src="/img/stella1.png")
+    include partials/banner
+    script.
+      const h1 = document.querySelector("h1")
+      const openButton = document.getElementById("open")
+      const modal = document.querySelector(".modal")
+      const overlay = modal.querySelector(".modal__overlay")
+      const modal_close = document.querySelector(".modal_close")
+      const siteUrl = document.querySelector(".siteUrl")
+      const siteName = document.querySelector(".siteName")
+      const siteDetail = document.querySelector(".siteDetail")
+      const inputId = document.querySelector(".inputId")
+      const inputPw = document.querySelector(".inputPw")
+      const modalSwitch = document.querySelector(".modalSwitch")
+
+      function inputClear(){
+        siteUrl.value=""
+        siteName.value=""
+        siteDetail.value=""
+        memo.value=""
+        inputId.value=""
+        inputPw.value=""
+      }
+      const openModal = () => {
+        modalSwitch.value = 0
+        inputClear()
+        h1.innerText = "추가할 사이트 정보를 입력해주세요."
+        modal.classList.remove("hidden")
+      }
+      const openEditModal = () => {
+        modalSwitch.value = 1
+        h1.innerText = "수정할 사이트 정보를 입력해주세요."
+        modal.classList.remove("hidden")
+      }
+      const closeModal = () => {
+        inputClear()
+        modal.classList.add("hidden")
+      }
+      overlay.addEventListener("click", closeModal)
+      openButton.addEventListener("click", openModal)
+      modal_close.addEventListener("click", closeModal)

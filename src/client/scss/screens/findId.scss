@@ -1,0 +1,127 @@
+.fidWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin-top: 80px;
+  .fidHeader {
+    img {
+      width: 285px;
+    }
+  }
+  .fidText {
+    display: flex;
+    justify-content: center;
+    img {
+      width: 210px;
+    }
+  }
+  #findIdForm {
+    padding: 0;
+    .inputArea {
+      display: grid;
+      grid-template-columns: 50px 300px 120px;
+      grid-template-rows: repeat(4, 0.2fr);
+      grid-gap: 10px;
+      .infoMessage {
+        grid-column: 2 / 4;
+        grid-row: 1;
+        display: flex;
+        justify-content: flex-end;
+      }
+      .name {
+        grid-column: 1;
+        grid-row: 2;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        left: 5px;
+      }
+      .inputName {
+        grid-column: 2;
+        grid-row: 2;
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        align-items: center;
+        input {
+          position: relative;
+          left: 20px;
+          width: 250px;
+          height: 25px;
+          background-color: transparent;
+          border: rgba($color: #c79f97, $alpha: 0.8) solid 2.5px;
+        }
+      }
+      .email {
+        grid-column: 1;
+        grid-row: 3;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        left: 5px;
+      }
+      .inputEmail {
+        grid-column: 2;
+        grid-row: 3;
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        align-items: center;
+        input {
+          position: relative;
+          left: 20px;
+          width: 250px;
+          height: 25px;
+          background-color: transparent;
+          border: rgba($color: #c79f97, $alpha: 0.8) solid 2.5px;
+        }
+      }
+      .loginBtnArea {
+        grid-column: 3;
+        grid-row: 2 / 4;
+        display: flex;
+        justify-content: center;
+        .fidBtn {
+          position: relative;
+          top: 2px;
+          width: 105px;
+        }
+      }
+    }
+    .etcArea {
+      display: grid;
+      grid-template-columns: 240px 240px;
+      grid-template-rows: repeat(3, 40px);
+      column-gap: 10px;
+      .errorMessage {
+        grid-column: 1;
+        grid-row: 1;
+        display: flex;
+        justify-content: flex-start;
+      }
+      .goToLogin {
+        grid-column: 2;
+        grid-row: 1;
+        display: flex;
+        justify-content: flex-end;
+        height: 30px;
+      }
+      .goTojoin {
+        grid-column: 2;
+        grid-row: 2;
+        display: flex;
+        justify-content: flex-end;
+        height: 30px;
+      }
+      .fpw {
+        grid-column: 2;
+        grid-row: 3;
+        display: flex;
+        justify-content: flex-end;
+        height: 30px;
+      }
+    }
+  }
+}

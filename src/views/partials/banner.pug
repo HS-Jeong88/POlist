@@ -1,8 +1,19 @@
 
-div.banner 
-  div
-    a(href="#") 
-      img(src="/img/banner2.png")
-  div
-    a(href="#") 
-      img(src="/img/banner1.png")
+div.bannerContainer
+  include video
+  div.bannerContents
+    a(href="https://blog.naver.com/defrag_/222460866159", target="blank") 
+      img(src="/img/reviewbenr.jpg", alt="")
+  div.bannerContents
+    a(onclick="multiLocation()") 
+      img(src="/img/benr_book.jpg", alt="")
+    script.
+      const link = ['https://blog.naver.com/defrag_/222398738866','https://kmong.com/money-plus/gig/330288']
+      function multiLocation(){
+        let i = 0 
+        while(i<link.length){
+          window.open(link[i])
+          i++
+        }
+        return
+      }

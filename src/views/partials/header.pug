@@ -1,22 +1,29 @@
 header
   div
     a(href="/").header__logo
-      img(src="/img/logop.png", alt="로고")
+      img(src="/img/loginsecretary_beta_logo.png", alt="로고")
+  div.bannerInHeader
+    a(href="/").banner_header
+      img(src="/img/banner_header.jpg", alt="배너")
   nav
     ul
+      li 
+        a.cs(href="https://defragmenter.modoo.at/?link=m3q08apu", target="blank") 
+          img(src="/img/topcenter.png", alt="고객센터")
       if loggedIn
         li
-          a(href="/users/edit") Edit Profile
+          a(href="/users/logout")  
+            img.logoutBtn(src="/img/logout.png", alt="로그아웃")
         li
-          a(href="/users/logout")  Log Out
-        li
-          a(href=`/users/${loggedInUser._id}`)
+          a(href=`/users/edit`)
             if loggedInUser.avatarUrl == undefined
-              img.header__avatar(src="/img/profile1.png")
+              img.header__avatar(src="/img/Profile1.png")
             else 
               img.header__avatar(src="/"+loggedInUser.avatarUrl)
       else
         li
-          a(href="/")  Login                        
+          a.login_header(href="/login")
+            img(src="/img/login_header.png", alt="로그인")
         li
-          a(href="/join").header__btn  Join
+          a.join_header(href="/joinSelect").header__btn
+            img(src="/img/top_join.png", alt="회원가입")

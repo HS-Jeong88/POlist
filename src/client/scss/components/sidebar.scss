@@ -1,15 +1,79 @@
-// .main_left {
-//   li {
-//     display: flex;
-//     justify-content: center;
-//     border: 1px solid #c79f97;
-//     margin: 0 10px 10px 10px;
-//     padding: 10px 10px;
-//     font-weight: bolder;
-//     font-size: 25px;
-//     width: 78%;
-//     a {
-//       color: #c79f97;
-//     }
-//   }
-// }
+.sidebar {
+  display: grid;
+  grid-template-rows: auto;
+  ul {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    // .sidebar_profile {
+    //   display: grid;
+    //   border: solid 1px #c79f97;
+    //   color: #c79f97;
+    //   text-align: center;
+    //   font-weight: bold;
+    //   font-size: 20px;
+    //   width: 150px;
+    //   height: 46px;
+    //   align-items: center;
+    // }
+    .invite,
+    .sidebar_profile,
+    .authority,
+    .management {
+      display: grid;
+      grid-template-rows: 46px;
+      // border: solid 1px #c79f97;
+      color: #c79f97;
+      text-align: center;
+      font-weight: bold;
+      font-size: 20px;
+      max-width: 150px;
+      a {
+        grid-column: 1;
+        grid-row: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        max-height: 46;
+        z-index: 4;
+      }
+      img {
+        width: 153px;
+        height: 49px;
+        grid-column: 1;
+        grid-row: 1;
+        right: 2px;
+        bottom: 2px;
+        z-index: 3;
+      }
+    }
+  }
+  .notification {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin: 6px 9px 0 0;
+    a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      background-color: rgba($color: #ef0101, $alpha: 1);
+      width: 16px;
+      height: 15px;
+      font-size: 8px;
+      font-weight: bold;
+      color: aliceblue;
+      border-radius: 8px;
+      left: 105px;
+      bottom: 15px;
+    }
+  }
+}
